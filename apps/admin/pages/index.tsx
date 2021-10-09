@@ -7,9 +7,18 @@ export function Index() {
       <div className={styles.page}>
         admin
       </div>
-      <Link href={'/isr'}>
-        <a>to ISR page</a>
-      </Link>
+      <ul>
+        <li>
+          <Link href={'/isr'}>
+            <a>to ISR page</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/chart'}>
+            <a>to Chart page</a>
+          </Link>
+        </li>
+      </ul>
     </>
   );
 }

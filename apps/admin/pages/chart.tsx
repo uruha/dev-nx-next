@@ -13,7 +13,7 @@ const boxAnnotation = {
   xMin: 'February',
   xMax: 'April',
   yMin: 0,
-  yMax: 1,
+  yMax: 10,
   backgroundColor: 'rgba(250,250,0,0.4)',
   borderColor: 'rgba(0,150,0,0.2)',
   drawTime: 'beforeDatasetsDraw',

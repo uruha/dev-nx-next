@@ -27,6 +27,8 @@
   },
   "private": true,
   "dependencies": {
+    "@fullcalendar/daygrid": "^5.9.0",
+    "@fullcalendar/react": "^5.9.0",
     "@nrwl/next": "12.6.3",
     "chart.js": "^3.5.1",
     "chartjs-plugin-annotation": "^1.0.2",

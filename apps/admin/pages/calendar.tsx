@@ -18,5 +18,10 @@ export default function Index() {
     validRange={{
       end: `${twoMonthsAfterTheCurrentMonth}`
     }}
+    headerToolbar={{
+      left: 'prev',
+      center: 'title',
+      right: 'next'
+    }}
   />
 };

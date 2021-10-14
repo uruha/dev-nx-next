@@ -13,3 +13,12 @@ const nextConfig = {
 };
 
 module.exports = withNx(nextConfig);
+
+const withTM = require('next-transpile-modules')([
+  '@fullcalendar/common',
+  '@fullcalendar/daygrid',
+]);
+
+module.exports = withTM({
+  // any other next.js settings here
+});

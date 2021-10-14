@@ -18,6 +18,11 @@ export function Index() {
             <a>to Chart page</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/calendar'}>
+            <a>to Calendar page</a>
+          </Link>
+        </li>
       </ul>
     </>
   );

@@ -10,5 +10,9 @@ export default function Index() {
     initialEvents={[
       { title: 'nice event', start: new Date() }
     ]}
+    initialView='dayGridMonth'
+    validRange={{
+      end: '2021-12-01'
+    }}
   />
 };

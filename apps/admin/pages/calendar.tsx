@@ -1,6 +1,10 @@
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
+const dateNow = new Date();
+const twoMonthsAfterTheCurrentMonth =
+  `${dateNow.getFullYear()}-${dateNow.getMonth()+3}-01`;
+
 export default function Index() {
   return <FullCalendar
     // eslint-disable-next-line
@@ -12,7 +16,7 @@ export default function Index() {
     ]}
     initialView='dayGridMonth'
     validRange={{
-      end: '2021-12-01'
+      end: `${twoMonthsAfterTheCurrentMonth}`
     }}
   />
 };

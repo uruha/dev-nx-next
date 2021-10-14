@@ -23,5 +23,10 @@ export default function Index() {
       center: 'title',
       right: 'next'
     }}
+    /**
+     * @NOTE
+     * スクロールバー対策だと絶対値で割り切ったほうが良さそう
+     */
+    height={600}
   />
 };

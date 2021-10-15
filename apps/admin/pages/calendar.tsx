@@ -18,7 +18,11 @@ const handleDateClick = (info: DateClickArg) => {
   });
 };
 
-const handleChangeDate = (dateInfo: DatesSetArg) => console.log(dateInfo);
+const handleChangeDate = (dateInfo: DatesSetArg) => {
+  console.log(dateInfo);
+  console.log(`current Year: ${dateInfo.view.currentStart.getFullYear()}`);
+  console.log(`current month: ${dateInfo.view.currentStart.getMonth()+1}`);
+};
 
 export default function Index() {
   return <FullCalendar

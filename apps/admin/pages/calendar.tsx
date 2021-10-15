@@ -1,3 +1,5 @@
+import Router from 'next/router';
+
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
@@ -6,7 +8,15 @@ const dateNow = new Date();
 const twoMonthsAfterTheCurrentMonth =
   `${dateNow.getFullYear()}-${dateNow.getMonth()+3}-01`;
 
-const handleDateClick = (info: DateClickArg) => console.log(info);
+const handleDateClick = (info: DateClickArg) => {
+  console.log(info);
+  Router.push({
+    pathname: '/daily-events/list',
+    query: {
+      date: info.dateStr
+    }
+  });
+};
 
 export default function Index() {
   return <FullCalendar

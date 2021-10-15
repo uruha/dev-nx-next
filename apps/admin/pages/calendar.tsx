@@ -1,6 +1,6 @@
 import Router from 'next/router';
 
-import FullCalendar from '@fullcalendar/react';
+import FullCalendar, { DatesSetArg } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
@@ -17,6 +17,8 @@ const handleDateClick = (info: DateClickArg) => {
     }
   });
 };
+
+const handleChangeDate = (dateInfo: DatesSetArg) => console.log(dateInfo);
 
 export default function Index() {
   return <FullCalendar
@@ -45,5 +47,6 @@ export default function Index() {
      */
     height={600}
     dateClick={handleDateClick}
+    datesSet={handleChangeDate}
   />
 };

@@ -1,6 +1,6 @@
 import Router from 'next/router';
 
-import FullCalendar, { DatesSetArg } from '@fullcalendar/react';
+import FullCalendar, { DatesSetArg, EventContentArg } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
@@ -23,6 +23,15 @@ const handleChangeDate = (dateInfo: DatesSetArg) => {
   console.log(`current Year: ${dateInfo.view.currentStart.getFullYear()}`);
   console.log(`current month: ${dateInfo.view.currentStart.getMonth()+1}`);
 };
+
+const costomEventContent = (eventInfo: EventContentArg) => {
+  console.log(eventInfo);
+  return (
+    <>
+      <span>{eventInfo.timeText}</span>
+    </>
+  );
+}
 
 export default function Index() {
   return <FullCalendar
@@ -52,5 +61,9 @@ export default function Index() {
     height={600}
     dateClick={handleDateClick}
     datesSet={handleChangeDate}
+    /**
+     * custom date cell
+     */
+    eventContent={costomEventContent}
   />
 };

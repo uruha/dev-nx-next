@@ -24,7 +24,7 @@ const handleChangeDate = (dateInfo: DatesSetArg) => {
   console.log(`current month: ${dateInfo.view.currentStart.getMonth()+1}`);
 };
 
-const costomEventContent = (eventInfo: EventContentArg) => {
+const customEventContent = (eventInfo: EventContentArg) => {
   console.log(eventInfo);
   return (
     <>

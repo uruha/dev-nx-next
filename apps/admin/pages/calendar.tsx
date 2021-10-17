@@ -64,6 +64,6 @@ export default function Index() {
     /**
      * custom date cell
      */
-    eventContent={costomEventContent}
+    eventContent={customEventContent}
   />
 };

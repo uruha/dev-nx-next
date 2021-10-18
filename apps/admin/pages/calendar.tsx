@@ -42,7 +42,11 @@ export default function Index() {
       interactionPlugin
     ]}
     locale="ja"
-    initialEvents={[
+    /**
+     * @see https://fullcalendar.io/docs/initialEvents
+     * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう
+     */
+    events={[
       { title: 'nice event', start: new Date() }
     ]}
     initialView='dayGridMonth'

@@ -1,8 +1,25 @@
 import Router from 'next/router';
 
-import FullCalendar, { DatesSetArg, EventContentArg } from '@fullcalendar/react';
+import FullCalendar, { DatesSetArg, EventClickArg, EventContentArg, EventSourceInput } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
+import { spawn } from 'child_process';
+
+const isEmptyObj = (obj) => 
+  Object.keys(obj).length === 0 && obj.constructor === Object;
+
+const events: EventSourceInput = [
+  { start: '2021-10-05', title: '入力あり' },
+  { start: '2021-10-07', title: '入力あり' },
+  { start: '2021-10-13', title: '入力あり' },
+  {
+    start: '2021-10-18',
+    title: '入力あり',
+    extendedProps: {
+      data: 'hoge'
+    }
+  }
+];
 
 const dateNow = new Date();
 const twoMonthsAfterTheCurrentMonth =
@@ -24,11 +41,24 @@ const handleChangeDate = (dateInfo: DatesSetArg) => {
   console.log(`current month: ${dateInfo.view.currentStart.getMonth()+1}`);
 };
 
+const handleClickEvent = (clickEventInfo: EventClickArg) => {
+  console.log(clickEventInfo);
+  console.log(clickEventInfo.event.startStr);
+  Router.push({
+    pathname: '/daily-events/list',
+    query: {
+      date: clickEventInfo.event.startStr
+    }
+  });
+};
+
 const customEventContent = (eventInfo: EventContentArg) => {
   console.log(eventInfo);
   return (
     <>
-      <span>{eventInfo.timeText}</span>
+      <span>{eventInfo.event.title}</span>
+      {!isEmptyObj(eventInfo.event.extendedProps)
+        && <p>{eventInfo.event.extendedProps.data}</p>}
     </>
   );
 }
@@ -46,9 +76,7 @@ export default function Index() {
      * @see https://fullcalendar.io/docs/initialEvents
      * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう
      */
-    events={[
-      { title: 'nice event', start: new Date() }
-    ]}
+    events={events}
     initialView='dayGridMonth'
     validRange={{
       end: `${twoMonthsAfterTheCurrentMonth}`
@@ -69,5 +97,6 @@ export default function Index() {
      * custom date cell
      */
     eventContent={customEventContent}
+    eventClick={handleClickEvent}
   />
 };

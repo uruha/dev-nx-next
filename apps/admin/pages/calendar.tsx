@@ -3,7 +3,6 @@ import Router from 'next/router';
 import FullCalendar, { DatesSetArg, EventClickArg, EventContentArg, EventSourceInput } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
-import { spawn } from 'child_process';
 
 const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;

@@ -23,6 +23,11 @@ export function Index() {
             <a>to Calendar page</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/ex-calendar'}>
+            <a>to Extra Calendar page</a>
+          </Link>
+        </li>
       </ul>
     </>
   );

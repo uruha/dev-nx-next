@@ -1,35 +1,13 @@
 import Router from 'next/router';
 
-import FullCalendar, { DatesSetArg, EventClickArg, EventContentArg, EventSourceInput } from '@fullcalendar/react';
+import FullCalendar, { DatesSetArg, EventClickArg, EventSourceInput } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
-const dailyEventsData = [
-  {
-    start: '2021-10-18',
-    extendedProps: {
-      fisrt: {
-        event: true,
-        detail: {
-          level: 'high',
-          kinds: ['hoge', 'fuga'],
-          trigger: ['dog', 'cat']
-        },
-        meal: [
-          {
-            kinds: 'rice',
-            times: 2,
-            effect: true
-          }
-        ]
-      },
-      second: {},
-      third: {}
-    }
-  }
-];
+import { dailyEventsData } from '../lib/ex-calendar-data';
+import { CustomEventContent } from '../components/CustomDateCell';
 
-const isEmptyObj = (obj) => 
+export const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;
 
 const events: EventSourceInput = dailyEventsData;
@@ -49,15 +27,6 @@ const handleChangeDate = (dateInfo: DatesSetArg) => {
 const handleClickEvent = (clickEventInfo: EventClickArg) => {
   console.log(clickEventInfo);
 };
-
-const customEventContent = (eventInfo: EventContentArg) => {
-  console.log(eventInfo);
-  return (
-    <>
-      <span>{eventInfo.event.startStr}</span>
-    </>
-  );
-}
 
 export default function Index() {
   return <FullCalendar
@@ -86,13 +55,13 @@ export default function Index() {
      * @NOTE
      * スクロールバー対策だと絶対値で割り切ったほうが良さそう
      */
-    height={800}
+     contentHeight='auto'
     dateClick={handleDateClick}
     datesSet={handleChangeDate}
     /**
      * custom date cell
      */
-    eventContent={customEventContent}
+    eventContent={CustomEventContent}
     eventClick={handleClickEvent}
   />
 };

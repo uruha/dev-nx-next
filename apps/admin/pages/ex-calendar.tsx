@@ -51,11 +51,7 @@ export default function Index() {
       center: 'title',
       right: ''
     }}
-    /**
-     * @NOTE
-     * スクロールバー対策だと絶対値で割り切ったほうが良さそう
-     */
-     contentHeight='auto'
+    contentHeight='auto'
     dateClick={handleDateClick}
     datesSet={handleChangeDate}
     /**

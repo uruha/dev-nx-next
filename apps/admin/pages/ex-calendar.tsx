@@ -4,18 +4,35 @@ import FullCalendar, { DatesSetArg, EventClickArg, EventContentArg, EventSourceI
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
-const isEmptyObj = (obj) => 
-  Object.keys(obj).length === 0 && obj.constructor === Object;
-
-const events: EventSourceInput = [
+const dailyEventsData = [
   {
     start: '2021-10-18',
-    title: '入力あり',
     extendedProps: {
-      data: 'hoge'
+      fisrt: {
+        event: true,
+        detail: {
+          level: 'high',
+          kinds: ['hoge', 'fuga'],
+          trigger: ['dog', 'cat']
+        },
+        meal: [
+          {
+            kinds: 'rice',
+            times: 2,
+            effect: true
+          }
+        ]
+      },
+      second: {},
+      third: {}
     }
   }
 ];
+
+const isEmptyObj = (obj) => 
+  Object.keys(obj).length === 0 && obj.constructor === Object;
+
+const events: EventSourceInput = dailyEventsData;
 
 const dateNow = new Date();
 const nextMonthAfterTheCurrentMonth =
@@ -37,9 +54,7 @@ const customEventContent = (eventInfo: EventContentArg) => {
   console.log(eventInfo);
   return (
     <>
-      <span>{eventInfo.event.title}</span>
-      {!isEmptyObj(eventInfo.event.extendedProps)
-        && <p>{eventInfo.event.extendedProps.data}</p>}
+      <span>{eventInfo.event.startStr}</span>
     </>
   );
 }

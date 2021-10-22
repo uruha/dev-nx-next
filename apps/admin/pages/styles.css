@@ -1,7 +1,7 @@
 .app {
   font-family: sans-serif;
   min-width: 300px;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 50px auto;
 }
 
@@ -125,4 +125,20 @@
   height: 16px;
   width: 16px;
   margin-right: 4px;
+}
+
+/** 
+ * Reset Calenedar Cell Style
+ */
+ .fc .fc-h-event {
+  border: #fff;
+  background-color: #fff;
+}
+
+.fc .fc-h-event .fc-event-main {
+  color: #000;
+}
+
+.fc .fc-daygrid-day-bg .fc-bg-event.event-period {
+  height: 30px;
 }

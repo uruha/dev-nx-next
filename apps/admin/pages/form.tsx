@@ -5,7 +5,11 @@ import { useState } from 'react';
 import { FoodAndDrink, foodAndDrink } from '../lib/suggest-data';
 
 function SuggestForm() {
-  // react-hook-form setting
+  /**
+   * -----------------------
+   * react-hook-form setting 
+   * -----------------------
+   */ 
   const {
     handleSubmit,
     control,
@@ -14,7 +18,11 @@ function SuggestForm() {
 
   const onSubmit = data => console.log(data);
 
-  // react-autosuggestion setting
+  /**
+   * ----------------------------
+   * react-autosuggestion setting
+   * ----------------------------
+   */ 
   // prepare suggest hooks
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState<FoodAndDrink[]>([]);
@@ -25,13 +33,14 @@ function SuggestForm() {
   const isIncludes = (suggestString: string, inputString: string) => suggestString.includes(inputString);
 
   // japanese string manipulation
-  /**
-   * @NOTE unicode sample
-   * @see https://qiita.com/graminume/items/2ac8dd9c32277fa9da64
-   */
+  // @NOTE unicode sample
+  // @see https://qiita.com/graminume/items/2ac8dd9c32277fa9da64
+
+  // all japanese unicode
   const hiraKanaUnicode = /^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/;
   const isJapanase = (inputString: string) => hiraKanaUnicode.test(inputString);
 
+  // 「ひらがな」
   const hiraganaUnicode = /[\u3040-\u309f]/;
   const isHiragana = (inputString: string) => hiraganaUnicode.test(inputString);
   const hiraToKana = (inputStrig: string) => {
@@ -41,6 +50,7 @@ function SuggestForm() {
     });
   }
 
+  // 「カタカナ」
   const katakanaUnicode = /[\u30a0-\u30ff]/;
   const isKatakana = (inputString: string) => katakanaUnicode.test(inputString);
   const kanaToHira = (inputString: string) => {
@@ -116,6 +126,12 @@ function SuggestForm() {
       setInputValue(newValue);
     }
   };
+
+  /**
+   * -----------------------------------
+   * selected form value display setting
+   * -----------------------------------
+   */
 
 
   return (

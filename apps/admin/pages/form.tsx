@@ -171,6 +171,15 @@ function SuggestForm() {
             />
           )}
         />
+        <div>
+          {
+            (suggestions.length === 0 && inputValue.length > 0) &&
+            <button onClick={() => {
+              setSelectedValue([{ name: inputValue }, ...selectedValue]);
+              setInputValue('');
+            }}>追加</button>
+          }
+        </div>
       </fieldset>
       <div>
         {selectedValue.length > 0 && selectedList}

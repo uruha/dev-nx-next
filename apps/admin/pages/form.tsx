@@ -97,10 +97,10 @@ function SuggestForm() {
       });
   };
 
-  const handleOnSuggestionSelected = (_, { suggestion }) => {
+  const handleOnSuggestionSelected = (_, data) => {
     // @NOTE react-hook-form の data にセットする仮の処理
-    setValue('suggest', suggestion);
-    console.log(suggestion);
+    setValue('suggest', data.suggestion);
+    console.log(data.suggestion);
   }
 
   const renderSuggestion = suggestion => (

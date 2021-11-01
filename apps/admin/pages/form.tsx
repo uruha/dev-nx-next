@@ -13,10 +13,14 @@ function SuggestForm() {
   const {
     handleSubmit,
     control,
-    setValue
+    // @NOTE react-hook-form の data にセットする際の処理
+    // setValue
   } = useForm();
 
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+    console.log(selectedValue);
+    console.log(data);
+  };
 
   /**
    * ----------------------------
@@ -108,9 +112,7 @@ function SuggestForm() {
   };
 
   const handleOnSuggestionSelected = (_, data) => {
-    // @NOTE react-hook-form の data にセットする仮の処理
-    setValue('suggest', data.suggestion);
-    console.log(data.suggestion);
+    setSelectedValue([data.suggestion, ...selectedValue]);
   }
 
   const renderSuggestion = suggestion => (
@@ -132,7 +134,9 @@ function SuggestForm() {
    * selected form value display setting
    * -----------------------------------
    */
+   const [selectedValue, setSelectedValue] = useState([]);
 
+   const selectedList = selectedValue.map((value, index) => <div key={index}>{value.name}</div>);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -161,6 +165,9 @@ function SuggestForm() {
           )}
         />
       </fieldset>
+      <div>
+        {selectedValue.length > 0 && selectedList}
+      </div>
       <button type="submit">登録</button>
     </form>
   )

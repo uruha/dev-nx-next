@@ -112,7 +112,14 @@ function SuggestForm() {
   };
 
   const handleOnSuggestionSelected = (_, data) => {
+    /**
+     * @NOTE
+     * 候補を選択した際に以下2つの処理を同時に行う
+     * 1. 選択したオブジェクトを選択用配列に格納
+     * 2. input 上の入力値を clear
+     */
     setSelectedValue([data.suggestion, ...selectedValue]);
+    setInputValue('');
   }
 
   const renderSuggestion = suggestion => (

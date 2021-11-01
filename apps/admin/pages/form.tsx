@@ -8,14 +8,15 @@ function SuggestForm() {
   // react-hook-form setting
   const {
     handleSubmit,
-    control
+    control,
+    setValue
   } = useForm();
 
   const onSubmit = data => console.log(data);
 
   // react-autosuggestion setting
   // prepare suggest hooks
-  const [value, setValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState<FoodAndDrink[]>([]);
   
   // english string manipulation (※ also supports Japanese)
@@ -97,6 +98,8 @@ function SuggestForm() {
   };
 
   const handleOnSuggestionSelected = (_, { suggestion }) => {
+    // @NOTE react-hook-form の data にセットする仮の処理
+    setValue('suggest', suggestion);
     console.log(suggestion);
   }
 
@@ -108,9 +111,9 @@ function SuggestForm() {
 
   const inputProps = {
     placeholder: 'Type "ビ"',
-    value,
+    value: inputValue,
     onChange: (_, { newValue }) => {
-      setValue(newValue);
+      setInputValue(newValue);
     }
   };
 
@@ -127,7 +130,7 @@ function SuggestForm() {
               // required props
               suggestions={suggestions}
               onSuggestionsFetchRequested={({ value }) => {
-                setValue(value);
+                setInputValue(value);
                 setSuggestions(
                   getSuggestions(value, foodAndDrink)
                 );
@@ -142,6 +145,7 @@ function SuggestForm() {
           )}
         />
       </fieldset>
+      <button type="submit">登録</button>
     </form>
   )
 }

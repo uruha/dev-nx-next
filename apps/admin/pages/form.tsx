@@ -171,7 +171,7 @@ function SuggestForm() {
             />
           )}
         />
-        <div>
+        <span>
           {
             (suggestions.length === 0 && inputValue.length > 0) &&
             <button onClick={() => {
@@ -179,7 +179,7 @@ function SuggestForm() {
               setInputValue('');
             }}>追加</button>
           }
-        </div>
+        </span>
       </fieldset>
       <div>
         {selectedValue.length > 0 && selectedList}

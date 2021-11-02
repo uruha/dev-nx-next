@@ -1,6 +1,6 @@
 import { useForm, Controller, NestedValue, SubmitHandler } from 'react-hook-form';
 import Autosuggest from 'react-autosuggest';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 import { FoodAndDrink, foodAndDrink } from '../lib/suggest-data';
 
@@ -141,9 +141,30 @@ function SuggestForm() {
    * selected form value display setting
    * -----------------------------------
    */
-   const [selectedValue, setSelectedValue] = useState([]);
+  const [selectedValue, setSelectedValue] = useState<FoodAndDrink[]>([]);
 
-   const selectedList = selectedValue.map((value, index) => <div key={index}>{value.name}</div>);
+  const useDosage =(initialDosage = 0, itemDosage) => {
+    const [dosage, setDosage] = useState(initialDosage);
+    const changedDosage = (e: ChangeEvent<HTMLInputElement>) =>
+      setDosage(itemDosage = Number(e.target.value));
+    return { dosage, setDosage, changedDosage };
+  };
+
+  const SelectedItem = ({ foodAndDrinkItem }) => {
+    const dosage = useDosage(0, foodAndDrinkItem.dosage);
+    return (
+      <fieldset>
+        <legend>{foodAndDrinkItem.name}</legend>
+        {foodAndDrinkItem.unit && (
+          <div>
+            <input value={dosage.dosage} onChange={dosage.changedDosage} /><span>{foodAndDrinkItem.unit}</span>
+          </div>
+        )}
+      </fieldset>
+    );
+  }
+
+  const selectedList = selectedValue.map((value, index) => <SelectedItem key={index} foodAndDrinkItem={value} />);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -175,7 +196,9 @@ function SuggestForm() {
           {
             (suggestions.length === 0 && inputValue.length > 0) &&
             <button onClick={() => {
-              setSelectedValue([{ name: inputValue }, ...selectedValue]);
+              setSelectedValue(
+                [{ name: inputValue }, ...selectedValue]
+              );
               setInputValue('');
             }}>追加</button>
           }

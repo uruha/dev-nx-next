@@ -93,9 +93,9 @@ function SuggestForm() {
   //   if(target && target.length === 0) return suggestions[target];
   //   if(!target) return suggestion;
   // }
+  const getSuggestionValue = suggestion => suggestion.name;
 
   // prepare suggest logics
-  const getSuggestionValue = suggestion => suggestion.name;
   const getSuggestions= <S extends string, T extends Record<string, unknown>>(inputValue: S, candidateList: T[]): T[] => {
     const inputProcessedString = createInputProcessedString(inputValue);
     const inputLength = inputProcessedString.length;

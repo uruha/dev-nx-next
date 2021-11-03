@@ -143,28 +143,34 @@ function SuggestForm() {
    */
   const [selectedValue, setSelectedValue] = useState<FoodAndDrink[]>([]);
 
-  const useDosage =(initialDosage = 0, itemDosage) => {
+  const useDosage =(initialDosage = '') => {
     const [dosage, setDosage] = useState(initialDosage);
-    const changedDosage = (e: ChangeEvent<HTMLInputElement>) =>
-      setDosage(itemDosage = Number(e.target.value));
+    const changedDosage = (e: ChangeEvent<HTMLInputElement>) => {
+      setDosage(e.target.value);
+    };
     return { dosage, setDosage, changedDosage };
   };
 
-  const SelectedItem = ({ foodAndDrinkItem }) => {
-    const dosage = useDosage(0, foodAndDrinkItem.dosage);
+  const SelectedItem = ({ item }) => {
+    const dosage = useDosage('0');
+  
+    if(Object.keys(item).includes('dosage')) {
+      item.dosage = Number(dosage.dosage);
+    }
+
     return (
       <fieldset>
-        <legend>{foodAndDrinkItem.name}</legend>
-        {foodAndDrinkItem.unit && (
+        <legend>{item.name}</legend>
+        {item.unit && (
           <div>
-            <input value={dosage.dosage} onChange={dosage.changedDosage} /><span>{foodAndDrinkItem.unit}</span>
+            <input value={dosage.dosage} onChange={dosage.changedDosage} /><span>{item.unit}</span>
           </div>
         )}
       </fieldset>
     );
   }
 
-  const selectedList = selectedValue.map((value, index) => <SelectedItem key={index} foodAndDrinkItem={value} />);
+  const selectedList = selectedValue.map((value, index) => <SelectedItem key={index} item={value} />);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

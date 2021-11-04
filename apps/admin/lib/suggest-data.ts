@@ -5,7 +5,7 @@ export type FoodAndDrink = {
   unit?: string;
 }
 
-export const foodAndDrink: FoodAndDrink[] = [
+export const foodAndDrinkCandidates: FoodAndDrink[] = [
   {
     id: 1,
     name: 'ビール',

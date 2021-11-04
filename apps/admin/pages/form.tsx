@@ -141,6 +141,7 @@ function SuggestForm() {
    * selected form value display setting
    * -----------------------------------
    */
+  // @NOTE 初期登録の場合は空の配列で良いが、登録済みの場合は登録された
   const [selectedValue, setSelectedValue] = useState<FoodAndDrink[]>([]);
 
   const useDosage =(initialDosage = '') => {

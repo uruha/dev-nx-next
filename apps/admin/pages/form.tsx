@@ -163,7 +163,7 @@ function SuggestForm() {
     return (
       <fieldset>
         <legend>{item.name}</legend>
-        {item.unit && (
+        {hasDosage && (
           <div>
             <input value={dosage.dosage} onChange={dosage.changedDosage} /><span>{item.unit}</span>
           </div>

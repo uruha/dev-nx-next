@@ -144,7 +144,7 @@ function SuggestForm() {
   // @NOTE 初期登録の場合は空の配列で良いが、登録済みの場合は登録された
   const [selectedValue, setSelectedValue] = useState<FoodAndDrink[]>([]);
 
-  const useDosage =(initialDosage = '') => {
+  const useDosage =(initialDosage = '0') => {
     const [dosage, setDosage] = useState(initialDosage);
     const changedDosage = (e: ChangeEvent<HTMLInputElement>) => {
       setDosage(e.target.value);
@@ -154,7 +154,7 @@ function SuggestForm() {
 
   const SelectedItem = ({ item }) => {
     const hasDosage = Object.keys(item).includes('dosage');
-    const dosage = useDosage(hasDosage ? item.dosage : 0);
+    const dosage = useDosage(hasDosage && item.dosage);
 
     if(hasDosage) {
       item.dosage = Number(dosage.dosage);

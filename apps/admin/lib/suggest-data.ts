@@ -1,7 +1,7 @@
 export type FoodAndDrink = {
   id?: number;
   name: string;
-  dosage?: number | null;
+  dosage?: number;
   unit?: string;
 }
 
@@ -9,37 +9,37 @@ export const foodAndDrink: FoodAndDrink[] = [
   {
     id: 1,
     name: 'ビール',
-    dosage: null,
+    dosage: 0,
     unit: 'パイント'
   },
   {
     id: 2,
     name: 'ピザ',
-    dosage: null,
+    dosage: 0,
     unit: 'piece'
   },
   {
     id: 3,
     name: 'ごはん',
-    dosage: null,
+    dosage: 0,
     unit: '杯'
   },
   {
     id: 4,
     name: 'びーるおぶびーる',
-    dosage: null,
+    dosage: 0,
     unit: 'パイント'
   },
   {
     id: 5,
     name: 'Beer',
-    dosage: null,
+    dosage: 0,
     unit: 'Pint'
   },
   {
     id: 6,
     name: 'ビール 350mL',
-    dosage: null,
+    dosage: 0,
     unit: 'パイント'
   },
 ];

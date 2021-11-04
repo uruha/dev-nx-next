@@ -2,7 +2,7 @@ import { useForm, Controller, NestedValue, SubmitHandler } from 'react-hook-form
 import Autosuggest from 'react-autosuggest';
 import { ChangeEvent, useState } from 'react';
 
-import { FoodAndDrink, foodAndDrink } from '../lib/suggest-data';
+import { FoodAndDrink, foodAndDrinkCandidates } from '../lib/suggest-data';
 
 function SuggestForm() {
   /**
@@ -152,9 +152,10 @@ function SuggestForm() {
   };
 
   const SelectedItem = ({ item }) => {
-    const dosage = useDosage('0');
-  
-    if(Object.keys(item).includes('dosage')) {
+    const hasDosage = Object.keys(item).includes('dosage');
+    const dosage = useDosage(hasDosage ? item.dosage : 0);
+
+    if(hasDosage) {
       item.dosage = Number(dosage.dosage);
     }
 
@@ -186,7 +187,7 @@ function SuggestForm() {
               onSuggestionsFetchRequested={({ value }) => {
                 setInputValue(value);
                 setSuggestions(
-                  getSuggestions(value, foodAndDrink)
+                  getSuggestions(value, foodAndDrinkCandidates)
                 );
               }}
               getSuggestionValue={getSuggestionValue}

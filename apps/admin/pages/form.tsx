@@ -151,7 +151,7 @@ function SuggestForm() {
     const changedDosage = (e: ChangeEvent<HTMLInputElement>) => {
       setDosage(e.target.value);
     };
-    return { dosage, setDosage, changedDosage };
+    return { dosage, changedDosage };
   };
 
   const useUnit = (initialUnit = '') => {

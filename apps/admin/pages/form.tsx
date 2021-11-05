@@ -162,14 +162,31 @@ function SuggestForm() {
     return { unit, changedUnit };
   };
 
-  const SelectedItem = ({ item }: { item: BasicDataType }) => {
-    const dosage = useDosage(item.dosage);
+  const OptionalSelect = ({ units, item }: { units: string[], item: BasicDataType }) => {
     const unit = useUnit(item.unit);
-
-    item.dosage = dosage.dosage;
     if(!item.isMaster) {
       item.unit = unit.unit;
     }
+    
+    return (
+      <span>
+        {units.length && (
+          <select
+            defaultValue={units[0]}
+            onChange={unit.changedUnit}
+          >
+            {units.map((option, key) => (
+              <option value={option} key={key}>{option}</option>
+            ))}
+          </select>
+        )}
+      </span>
+    );
+  };
+
+  const SelectedItem = ({ item }: { item: BasicDataType }) => {
+    const dosage = useDosage(item.dosage);
+    item.dosage = dosage.dosage;
 
     return (
       <fieldset>
@@ -179,18 +196,7 @@ function SuggestForm() {
           {
             item.isMaster
             ? <span>{item.unit}</span>
-            : <span>
-                {units.length && (
-                  <select
-                    defaultValue={units[0]}
-                    onChange={unit.changedUnit}
-                  >
-                    {units.map((option, key) => (
-                      <option value={option} key={key}>{option}</option>
-                    ))}
-                  </select>
-                )}
-              </span>
+            : <OptionalSelect units={units} item={item} />
           }
         </div>
       </fieldset>

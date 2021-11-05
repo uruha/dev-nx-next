@@ -2,7 +2,7 @@ import { useForm, Controller, NestedValue, SubmitHandler } from 'react-hook-form
 import Autosuggest from 'react-autosuggest';
 import { ChangeEvent, useState } from 'react';
 
-import { FoodAndDrink, foodAndDrinkCandidates } from '../lib/suggest-data';
+import { BasicDataType, FoodAndDrink, foodAndDrinkCandidates } from '../lib/suggest-data';
 
 import styles from './form.module.css';
 
@@ -98,7 +98,7 @@ function SuggestForm() {
   const getSuggestionValue = suggestion => suggestion.name;
 
   // prepare suggest logics
-  const getSuggestions= <S extends string, T extends Record<string, unknown>>(inputValue: S, candidateList: T[]): T[] => {
+  const getSuggestions= <S extends string, T extends BasicDataType>(inputValue: S, candidateList: T[]): T[] => {
     const inputProcessedString = createInputProcessedString(inputValue);
     const inputLength = inputProcessedString.length;
 
@@ -208,7 +208,15 @@ function SuggestForm() {
           <div>
             <button onClick={() => {
               setSelectedValue(
-                [{ name: inputValue }, ...selectedValue]
+                [
+                  {
+                    name: inputValue,
+                    dosage: 0,
+                    unit: [ 'パイント', '杯', 'piece', 'Pint' ],
+                    isMaster: false
+                  },
+                  ...selectedValue
+                ]
               );
               setInputValue('');
             }}>追加</button>

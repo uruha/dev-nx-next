@@ -4,6 +4,8 @@ import { ChangeEvent, useState } from 'react';
 
 import { FoodAndDrink, foodAndDrinkCandidates } from '../lib/suggest-data';
 
+import styles from './form.module.css';
+
 function SuggestForm() {
   /**
    * -----------------------
@@ -178,39 +180,40 @@ function SuggestForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <fieldset>
         <legend>Suggest...</legend>
-        <Controller
-          name="suggest"
-          control={control}
-          render={() => (
-            <Autosuggest
-              // required props
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={({ value }) => {
-                setInputValue(value);
-                setSuggestions(
-                  getSuggestions(value, foodAndDrinkCandidates)
-                );
-              }}
-              getSuggestionValue={getSuggestionValue}
-              renderSuggestion={renderSuggestion}
-              inputProps={inputProps}
-              onSuggestionsClearRequested={() => setSuggestions([])}
-              // options props
-              onSuggestionSelected={handleOnSuggestionSelected}
+        <div className={styles.suggest_container}>
+          <div>
+            <Controller
+              name="suggest"
+              control={control}
+              render={() => (
+                <Autosuggest
+                  // required props
+                  suggestions={suggestions}
+                  onSuggestionsFetchRequested={({ value }) => {
+                    setInputValue(value);
+                    setSuggestions(
+                      getSuggestions(value, foodAndDrinkCandidates)
+                    );
+                  }}
+                  getSuggestionValue={getSuggestionValue}
+                  renderSuggestion={renderSuggestion}
+                  inputProps={inputProps}
+                  onSuggestionsClearRequested={() => setSuggestions([])}
+                  // options props
+                  onSuggestionSelected={handleOnSuggestionSelected}
+                />
+              )}
             />
-          )}
-        />
-        <span>
-          {
-            (suggestions.length === 0 && inputValue.length > 0) &&
+          </div>
+          <div>
             <button onClick={() => {
               setSelectedValue(
                 [{ name: inputValue }, ...selectedValue]
               );
               setInputValue('');
             }}>追加</button>
-          }
-        </span>
+          </div>
+        </div>
       </fieldset>
       <div>
         {selectedValue.length > 0 && selectedList}

@@ -2,11 +2,12 @@ export interface BasicDataType {
   id?: number;
   name: string;
   dosage: number;
-  unit: string | string[];
+  unit: string;
   isMaster: boolean;
 }
 
 export type FoodAndDrink = BasicDataType;
+export const units = ['パイント', 'piece', '杯', 'Pint'];
 export const foodAndDrinkCandidates: FoodAndDrink[] = [
   {
     id: 1,

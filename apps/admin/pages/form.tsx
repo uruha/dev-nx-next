@@ -2,7 +2,7 @@ import { useForm, Controller, NestedValue, SubmitHandler } from 'react-hook-form
 import Autosuggest from 'react-autosuggest';
 import { ChangeEvent, useState } from 'react';
 
-import { BasicDataType, FoodAndDrink, foodAndDrinkCandidates } from '../lib/suggest-data';
+import { BasicDataType, FoodAndDrink, foodAndDrinkCandidates, units } from '../lib/suggest-data';
 
 import styles from './form.module.css';
 
@@ -154,22 +154,45 @@ function SuggestForm() {
     return { dosage, setDosage, changedDosage };
   };
 
-  const SelectedItem = ({ item }) => {
-    const hasDosage = Object.keys(item).includes('dosage');
-    const dosage = useDosage(hasDosage && item.dosage);
+  const useUnit = (initialUnit = '') => {
+    const [unit, setUnit] = useState(initialUnit);
+    const changedUnit = (e: ChangeEvent<HTMLSelectElement>) => {
+      setUnit(e.target.value);
+    };
+    return { unit, changedUnit };
+  };
 
-    if(hasDosage) {
-      item.dosage = Number(dosage.dosage);
+  const SelectedItem = ({ item }) => {
+    const dosage = useDosage(item.dosage);
+    const unit = useUnit(item.unit);
+
+    item.dosage = Number(dosage.dosage);
+    if(!item.isMaster) {
+      item.unit = unit.unit;
     }
 
     return (
       <fieldset>
         <legend>{item.name}</legend>
-        {hasDosage && (
-          <div>
-            <input value={dosage.dosage} onChange={dosage.changedDosage} /><span>{item.unit}</span>
-          </div>
-        )}
+        <div>
+          <input value={dosage.dosage} onChange={dosage.changedDosage} />
+          {
+            item.isMaster
+            ? <span>{item.unit}</span>
+            : <span>
+                {units.length && (
+                  <select
+                    defaultValue={units[0]}
+                    onChange={unit.changedUnit}
+                  >
+                    {units.map((option, key) => (
+                      <option value={option} key={key}>{option}</option>
+                    ))}
+                  </select>
+                )}
+              </span>
+          }
+        </div>
       </fieldset>
     );
   }
@@ -212,7 +235,7 @@ function SuggestForm() {
                   {
                     name: inputValue,
                     dosage: 0,
-                    unit: [ 'パイント', '杯', 'piece', 'Pint' ],
+                    unit: '',
                     isMaster: false
                   },
                   ...selectedValue

@@ -20,7 +20,7 @@ function SuggestForm() {
   } = useForm();
 
   const onSubmit = data => {
-    console.log(selectedValue);
+    console.log(selectedItems.selectedItems);
     console.log(data);
   };
 
@@ -120,7 +120,7 @@ function SuggestForm() {
      * 1. 選択したオブジェクトを選択用配列に格納
      * 2. input 上の入力値を clear
      */
-    setSelectedValue([data.suggestion, ...selectedValue]);
+    selectedItems.add(data.suggestion);
     setInputValue('');
   }
 
@@ -143,8 +143,20 @@ function SuggestForm() {
    * selected form value display setting
    * -----------------------------------
    */
-  // @NOTE 初期登録の場合は空の配列で良いが、登録済みの場合は登録された
-  const [selectedValue, setSelectedValue] = useState<FoodAndDrink[]>([]);
+  const useSelectedItems = <T extends BasicDataType>(initialState: T[] = []) => {
+    const [selectedItems, setSelectedItems] = useState(initialState);
+
+    const add = (item: T) => {
+      setSelectedItems([item, ...selectedItems]);
+    };
+
+    const remove = (index: number) => {
+      const removedItemList = selectedItems.filter((_, i) => index !== i);
+      setSelectedItems(removedItemList);
+    };
+
+    return { selectedItems, add, remove };
+  };
 
   const useDosage =(initialDosage = '0') => {
     const [dosage, setDosage] = useState(initialDosage);
@@ -203,7 +215,8 @@ function SuggestForm() {
     );
   }
 
-  const selectedList = selectedValue.map((value, index) => <SelectedItem key={index} item={value} />);
+  const selectedItems = useSelectedItems<FoodAndDrink>([]);
+  const selectedList = selectedItems.selectedItems.map((value, index) => <SelectedItem key={index} item={value} />);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -236,24 +249,19 @@ function SuggestForm() {
           </div>
           <div>
             <button onClick={() => {
-              setSelectedValue(
-                [
-                  {
-                    name: inputValue,
-                    dosage: '0',
-                    unit: '',
-                    isMaster: false
-                  },
-                  ...selectedValue
-                ]
-              );
+              selectedItems.add({
+                name: inputValue,
+                dosage: '0',
+                unit: '',
+                isMaster: false
+              });
               setInputValue('');
             }}>追加</button>
           </div>
         </div>
       </fieldset>
       <div>
-        {selectedValue.length > 0 && selectedList}
+        {selectedItems.selectedItems.length > 0 && selectedList}
       </div>
       <button type="submit">登録</button>
     </form>

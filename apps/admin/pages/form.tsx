@@ -162,11 +162,11 @@ function SuggestForm() {
     return { unit, changedUnit };
   };
 
-  const SelectedItem = ({ item }) => {
+  const SelectedItem = ({ item }: { item: BasicDataType }) => {
     const dosage = useDosage(item.dosage);
     const unit = useUnit(item.unit);
 
-    item.dosage = Number(dosage.dosage);
+    item.dosage = dosage.dosage;
     if(!item.isMaster) {
       item.unit = unit.unit;
     }
@@ -234,7 +234,7 @@ function SuggestForm() {
                 [
                   {
                     name: inputValue,
-                    dosage: 0,
+                    dosage: '0',
                     unit: '',
                     isMaster: false
                   },

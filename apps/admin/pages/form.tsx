@@ -196,7 +196,7 @@ function SuggestForm() {
     );
   };
 
-  const SelectedItem = ({ item }: { item: BasicDataType }) => {
+  const SelectedItem = ({ item, listKey }: { item: BasicDataType, listKey: number }) => {
     const dosage = useDosage(item.dosage);
     item.dosage = dosage.dosage;
 
@@ -210,13 +210,14 @@ function SuggestForm() {
             ? <span>{item.unit}</span>
             : <OptionalSelect units={units} item={item} />
           }
+          <button onClick={() => selectedItems.remove(listKey)}>削除</button>
         </div>
       </fieldset>
     );
   }
 
   const selectedItems = useSelectedItems<FoodAndDrink>([]);
-  const selectedList = selectedItems.selectedItems.map((value, index) => <SelectedItem key={index} item={value} />);
+  const selectedList = selectedItems.selectedItems.map((value, index) => <SelectedItem key={index} listKey={index} item={value} />);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

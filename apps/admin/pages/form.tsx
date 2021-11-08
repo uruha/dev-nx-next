@@ -50,7 +50,7 @@ function SuggestForm() {
   const hiraganaUnicode = /[\u3040-\u309f]/;
   const isHiragana = (inputString: string) => hiraganaUnicode.test(inputString);
   const hiraToKana = (inputStrig: string) => {
-    return inputStrig.replace(/[\u3040-\u309f]/g, function(match) {
+    return inputStrig.replace(hiraganaUnicode, function(match) {
         const character = match.charCodeAt(0) + 0x60;
         return String.fromCharCode(character);
     });
@@ -60,7 +60,7 @@ function SuggestForm() {
   const katakanaUnicode = /[\u30a0-\u30ff]/;
   const isKatakana = (inputString: string) => katakanaUnicode.test(inputString);
   const kanaToHira = (inputString: string) => {
-    return inputString.replace(/[\u30a1-\u30f6]/g, function(match) {
+    return inputString.replace(katakanaUnicode, function(match) {
         const character = match.charCodeAt(0) - 0x60;
         return String.fromCharCode(character);
     });
@@ -250,6 +250,7 @@ function SuggestForm() {
           </div>
           <div>
             <button onClick={() => {
+              // NOTE: 空白でも入力できるためバリデーションが必要
               selectedItems.add({
                 name: inputValue,
                 dosage: '0',

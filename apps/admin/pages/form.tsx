@@ -98,7 +98,7 @@ function SuggestForm() {
   const getSuggestionValue = suggestion => suggestion.name;
 
   // prepare suggest logics
-  const getSuggestions= <S extends string, T extends BasicDataType>(inputValue: S, candidateList: T[]): T[] => {
+  const getSuggestions= <T extends BasicDataType>(inputValue: string, candidateList: T[]): T[] => {
     const inputProcessedString = createInputProcessedString(inputValue);
     const inputLength = inputProcessedString.length;
 
@@ -235,7 +235,7 @@ function SuggestForm() {
                   onSuggestionsFetchRequested={({ value }) => {
                     setInputValue(value);
                     setSuggestions(
-                      getSuggestions(value, foodAndDrinkCandidates)
+                      getSuggestions<FoodAndDrink>(value, foodAndDrinkCandidates)
                     );
                   }}
                   getSuggestionValue={getSuggestionValue}

@@ -49,8 +49,8 @@ function SuggestForm() {
   // 「ひらがな」
   const hiraganaUnicode = /[\u3040-\u309f]/;
   const isHiragana = (inputString: string) => hiraganaUnicode.test(inputString);
-  const hiraToKana = (inputStrig: string) => {
-    return inputStrig.replace(hiraganaUnicode, function(match) {
+  const hiraToKana = (inputString: string) => {
+    return inputString.replace(hiraganaUnicode, function(match) {
         const character = match.charCodeAt(0) + 0x60;
         return String.fromCharCode(character);
     });

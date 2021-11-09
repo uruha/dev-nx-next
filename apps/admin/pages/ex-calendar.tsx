@@ -4,8 +4,8 @@ import FullCalendar, { DatesSetArg, EventClickArg, EventSourceInput } from '@ful
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
-import { dailyEventsData } from '../lib/ex-calendar-data';
-import { CustomEventContent } from '../components/CustomDateCell';
+import { dailyEventsData } from '../src/libs/ex-calendar-data';
+import { CustomEventContent } from '../src/components/CustomDateCell';
 
 export const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;

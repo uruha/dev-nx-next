@@ -2,7 +2,7 @@ import { useForm, Controller, NestedValue, SubmitHandler } from 'react-hook-form
 import Autosuggest from 'react-autosuggest';
 import { ChangeEvent, useState } from 'react';
 
-import { BasicDataType, FoodAndDrink, foodAndDrinkCandidates, units } from '../lib/suggest-data';
+import { BasicDataType, FoodAndDrink, foodAndDrinkCandidates, units } from '../src/libs/suggest-data';
 
 import styles from './form.module.css';
 

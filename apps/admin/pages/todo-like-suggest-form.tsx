@@ -1,4 +1,4 @@
-import { useForm, Controller } from 'react-hook-form';
+import { FormEvent } from 'react';
 import AutosuggestForm from '../src/components/Autosuggestion';
 import CanBeEnteredItem from '../src/components/CanBeEnteredItem';
 import { useInputValue } from '../src/hooks/useInputValue';
@@ -8,14 +8,14 @@ import { itemCandidates, UserItemInformation } from '../src/libs/suggest-data';
 import styles from './form.module.css';
 
 const TodoLikeSuggestForm = () => {
-  const { handleSubmit } = useForm();
   const hookInputValue = useInputValue();
   const hookUseSelectedItemsForEffectMeasurement = useSelectedItemsForEffectMeasurement<UserItemInformation>([]);
 
   const selectedItems = hookUseSelectedItemsForEffectMeasurement.selectedItems;
   const hasSelectedItems = selectedItems.length > 0;
 
-  const onSubmit = () => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log(selectedItems);
   };
 
@@ -29,7 +29,7 @@ const TodoLikeSuggestForm = () => {
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <fieldset>
         <legend>Suggest and Please feeling enter</legend>
         <div className={styles.suggest_container}>

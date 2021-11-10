@@ -28,6 +28,11 @@ export function Index() {
             <a>to Extra Calendar page</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/form'}>
+            <a>to Selectable Suggestion form page</a>
+          </Link>
+        </li>
       </ul>
     </>
   );

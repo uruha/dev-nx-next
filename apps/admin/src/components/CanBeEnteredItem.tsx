@@ -11,8 +11,8 @@ type Props = {
 };
 
 const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }) => {
-  const hookUseDosage = useDosage(item.dosage);
-  item.dosage = hookUseDosage.dosage;
+  const hookUseDosage = useDosage(`${item.dosage}`);
+  item.dosage = Number(hookUseDosage.dosage);
 
   const hookUseFeeling = useFeeling();
   switch (hookUseFeeling.effect) {

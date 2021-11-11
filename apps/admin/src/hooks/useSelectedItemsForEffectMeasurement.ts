@@ -14,6 +14,8 @@ export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformati
   const [selectedItems, setSelectedItems] = useState(initialState);
 
   const add = (item: T) => {
+    // NOTE: こっちは「美味しさを聴くためプロパティを追加している」
+    // 元の推測リストのオブジェクトを拡張して使い回す
     item.effect = null;
     setSelectedItems([item, ...selectedItems]);
   };

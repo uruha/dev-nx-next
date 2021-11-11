@@ -7,6 +7,7 @@ export type UseSelectedItemsForEffectMeasurement = {
   remove: (index: number) => void;
   updateDosage: (index: number, e: ChangeEvent<HTMLInputElement>) => void;
   selectEffect: (index: number, e: ChangeEvent<HTMLInputElement>) => void;
+  selectUnit: (index: number, e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformation>(initialState: T[] = []): UseSelectedItemsForEffectMeasurement => {
@@ -43,5 +44,13 @@ export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformati
     setSelectedItems(list);
   };
 
-  return { selectedItems, add, remove, updateDosage, selectEffect };
+  const selectUnit = (index: number, e: ChangeEvent<HTMLSelectElement>) => {
+    const list = [...selectedItems];
+    if(!list[index]['isMaster']) {
+      list[index]['unit'] = e.target.value;
+      setSelectedItems(list);
+    }
+  };
+
+  return { selectedItems, add, remove, updateDosage, selectEffect, selectUnit };
 };

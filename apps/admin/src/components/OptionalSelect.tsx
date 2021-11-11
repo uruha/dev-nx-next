@@ -1,23 +1,19 @@
-import { useUnit } from "../hooks/useUnit";
-import { ItemInformation, selectUnits } from "../libs/suggest-data";
+import { UseSelectedItemsForEffectMeasurement } from "../hooks/useSelectedItemsForEffectMeasurement";
+import { selectUnits } from "../libs/suggest-data";
 
 type Props = {
+  listKey: number;
   units: typeof selectUnits;
-  item: ItemInformation;
+  hookSelectedItems: UseSelectedItemsForEffectMeasurement;
 };
 
-const OptionalSelect: React.VFC<Props> = ({ units, item }) => {
-  const unit = useUnit(item.unit);
-  if(!item.isMaster) {
-    item.unit = unit.unit;
-  }
-  
+const OptionalSelect: React.VFC<Props> = ({ listKey, units, hookSelectedItems }) => {
   return (
     <span>
       {units.length && (
         <select
           defaultValue={units[0]}
-          onChange={unit.changedUnit}
+          onChange={e => hookSelectedItems.selectUnit(listKey ,e)}
         >
           {units.map((option, key) => (
             <option value={option} key={key}>{option}</option>

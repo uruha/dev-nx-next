@@ -12,31 +12,6 @@ type Props = {
 };
 
 const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }) => {
-  console.log(5);
-  console.log('before');
-  console.log(item);
-
-  // const hookUseDosage = useDosage(`${item.dosage}`);
-  // const hookUseFeeling = useFeeling();
-
-  // useEffect(() => {
-  //   item.dosage = Number(hookUseDosage.dosage);
-
-  //   switch (hookUseFeeling.effect) {
-  //     case 'yes':
-  //       item.effect = true;
-  //       break;
-  //     case 'no':
-  //       item.effect = false;
-  //       break;
-  //     default:
-  //       item.effect = null;
-  //   }
-  // }, [hookUseFeeling.effect, item]);
-  
-  console.log('after');
-  console.log(item);
-
   return (
     <fieldset>
       <legend>{item.name}</legend>
@@ -52,7 +27,11 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
         {
           item.isMaster
           ? <span>{item.unit}</span>
-          : <OptionalSelect units={units} item={item} />
+          : <OptionalSelect
+              listKey={listKey}
+              units={units}
+              hookSelectedItems={hookSelectedItems}
+            />
         }
         <button type="button" onClick={() => hookSelectedItems.remove(listKey)}>削除</button>
       </div>

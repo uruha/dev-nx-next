@@ -1,7 +1,5 @@
 import { KeyboardEvent, useEffect } from 'react';
-// import { useDosage } from "../hooks/useDosage";
-// import { useFeeling } from "../hooks/useFeeling";
-import { UseSelectedItemsForEffectMeasurement, useSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
+import { UseSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
 import { units, UserItemInformation } from "../libs/suggest-data";
 import OptionalSelect from "./OptionalSelect";
 

@@ -14,7 +14,7 @@ const TodoLikeSuggestForm = () => {
   const selectedItems = hookUseSelectedItemsForEffectMeasurement.selectedItems;
   const hasSelectedItems = selectedItems.length > 0;
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(selectedItems);
   };
@@ -42,7 +42,7 @@ const TodoLikeSuggestForm = () => {
   );
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={handleSubmit}>
       <fieldset>
         <legend>Suggest and Please feeling enter</legend>
         <div className={styles.suggest_container}>

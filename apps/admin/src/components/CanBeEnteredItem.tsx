@@ -1,3 +1,4 @@
+import { KeyboardEvent } from 'react';
 import { useDosage } from "../hooks/useDosage";
 import { useFeeling } from "../hooks/useFeeling";
 import { UseSelectedItemsForEffectMeasurement, useSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
@@ -30,7 +31,14 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
     <fieldset>
       <legend>{item.name}</legend>
       <div>
-        <input type="text" value={hookUseDosage.dosage} onChange={hookUseDosage.changedDosage} />
+        <input
+          type="text"
+          value={hookUseDosage.dosage}
+          onChange={hookUseDosage.changedDosage}
+          onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') e.preventDefault();
+          }}
+        />
         {
           item.isMaster
           ? <span>{item.unit}</span>

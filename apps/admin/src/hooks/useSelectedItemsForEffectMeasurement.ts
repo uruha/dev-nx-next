@@ -6,6 +6,7 @@ export type UseSelectedItemsForEffectMeasurement = {
   add: (item: UserItemInformation) => void;
   remove: (index: number) => void;
   updateDosage: (index: number, e: ChangeEvent<HTMLInputElement>) => void;
+  selectEffect: (index: number, e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformation>(initialState: T[] = []): UseSelectedItemsForEffectMeasurement => {
@@ -23,9 +24,24 @@ export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformati
 
   const updateDosage = (index: number, e: ChangeEvent<HTMLInputElement>) => {
     const list = [...selectedItems];
-    list[index]['dosage'] = Number(e.target.value);
+      list[index]['dosage'] = parseInt(e.target.value, 10) || 0;
+      setSelectedItems(list);
+  };
+
+  const selectEffect = (index: number, e: ChangeEvent<HTMLInputElement>) => {
+    const list = [...selectedItems];
+    switch (e.target.value) {
+      case 'yes':
+        list[index]['effect'] = 'Yes';
+        break;
+      case 'no':
+        list[index]['effect'] = 'No';
+        break;
+      default:
+        list[index]['effect'] = 'NoJudgment';
+    }
     setSelectedItems(list);
   };
 
-  return { selectedItems, add, remove, updateDosage };
+  return { selectedItems, add, remove, updateDosage, selectEffect };
 };

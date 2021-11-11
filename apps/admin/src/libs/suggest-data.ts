@@ -64,7 +64,7 @@ export interface ItemInformation {
 }
 
 export interface UserItemInformation extends ItemInformation {
-  effect: boolean | null;
+  effect: 'Yes' | 'No' | 'NoJudgment';
 }
 
 export const selectUnits = ['パイント', 'piece', '杯', 'Pint'];

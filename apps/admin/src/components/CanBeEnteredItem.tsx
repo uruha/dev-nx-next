@@ -1,6 +1,6 @@
 import { KeyboardEvent, useEffect } from 'react';
 // import { useDosage } from "../hooks/useDosage";
-import { useFeeling } from "../hooks/useFeeling";
+// import { useFeeling } from "../hooks/useFeeling";
 import { UseSelectedItemsForEffectMeasurement, useSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
 import { units, UserItemInformation } from "../libs/suggest-data";
 import OptionalSelect from "./OptionalSelect";
@@ -17,22 +17,22 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
   console.log(item);
 
   // const hookUseDosage = useDosage(`${item.dosage}`);
-  const hookUseFeeling = useFeeling();
+  // const hookUseFeeling = useFeeling();
 
-  useEffect(() => {
-    // item.dosage = Number(hookUseDosage.dosage);
+  // useEffect(() => {
+  //   item.dosage = Number(hookUseDosage.dosage);
 
-    switch (hookUseFeeling.effect) {
-      case 'yes':
-        item.effect = true;
-        break;
-      case 'no':
-        item.effect = false;
-        break;
-      default:
-        item.effect = null;
-    }
-  }, [hookUseFeeling.effect, item]);
+  //   switch (hookUseFeeling.effect) {
+  //     case 'yes':
+  //       item.effect = true;
+  //       break;
+  //     case 'no':
+  //       item.effect = false;
+  //       break;
+  //     default:
+  //       item.effect = null;
+  //   }
+  // }, [hookUseFeeling.effect, item]);
   
   console.log('after');
   console.log(item);
@@ -43,7 +43,7 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
       <div>
         <input
           type="text"
-          value={item.dosage}
+          value={`${item.dosage}`}
           onChange={e => hookSelectedItems.updateDosage(listKey, e)}
           onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') e.preventDefault();
@@ -62,8 +62,8 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
           <input
             type="radio"
             value="yes"
-            onChange={hookUseFeeling.selectEffect}
-            checked={hookUseFeeling.effect === 'yes'}
+            onChange={e => hookSelectedItems.selectEffect(listKey, e)}
+            checked={item.effect === 'Yes'}
           />
           はい
         </label>
@@ -71,8 +71,8 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
           <input
             type="radio"
             value="no"
-            onChange={hookUseFeeling.selectEffect}
-            checked={hookUseFeeling.effect === 'no'}
+            onChange={e => hookSelectedItems.selectEffect(listKey, e)}
+            checked={item.effect === 'No'}
           />
           いいえ
         </label>

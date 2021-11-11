@@ -19,6 +19,19 @@ const TodoLikeSuggestForm = () => {
     console.log(selectedItems);
   };
 
+  const handleFreeTextRegister = () => {
+    if(hookInputValue.value.length === 0) return;
+    // NOTE: 空白でも入力できるためバリデーションが必要
+    hookUseSelectedItemsForEffectMeasurement.add({
+      name: hookInputValue.value,
+      dosage: 0,
+      unit: '',
+      isMaster: false,
+      effect: null
+    });
+    hookInputValue.updateValue('');
+  }
+
   const selectedList = selectedItems.map(
     (item, index) => <CanBeEnteredItem
                       key={index}
@@ -41,17 +54,7 @@ const TodoLikeSuggestForm = () => {
             /> 
           </div>
           <div>
-            <button onClick={() => {
-                // NOTE: 空白でも入力できるためバリデーションが必要
-                hookUseSelectedItemsForEffectMeasurement.add({
-                  name: hookInputValue.value,
-                  dosage: 0,
-                  unit: '',
-                  isMaster: false,
-                  effect: null
-                });
-                hookInputValue.updateValue('');
-              }}>追加</button>
+            <button type="button" onClick={handleFreeTextRegister}>追加</button>
           </div>
         </div>
       </fieldset>

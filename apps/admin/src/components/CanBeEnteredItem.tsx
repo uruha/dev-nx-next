@@ -30,13 +30,13 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
     <fieldset>
       <legend>{item.name}</legend>
       <div>
-        <input value={hookUseDosage.dosage} onChange={hookUseDosage.changedDosage} />
+        <input type="text" value={hookUseDosage.dosage} onChange={hookUseDosage.changedDosage} />
         {
           item.isMaster
           ? <span>{item.unit}</span>
           : <OptionalSelect units={units} item={item} />
         }
-        <button onClick={() => hookSelectedItems.remove(listKey)}>削除</button>
+        <button type="button" onClick={() => hookSelectedItems.remove(listKey)}>削除</button>
       </div>
       <fieldset>
         <legend>美味しかった？</legend>

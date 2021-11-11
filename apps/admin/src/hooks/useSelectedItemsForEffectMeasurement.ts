@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { UserItemInformation } from "../libs/suggest-data";
 
 export type UseSelectedItemsForEffectMeasurement = {
   selectedItems: UserItemInformation[];
   add: (item: UserItemInformation) => void;
   remove: (index: number) => void;
+  updateDosage: (index: number, e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformation>(initialState: T[] = []): UseSelectedItemsForEffectMeasurement => {
@@ -20,5 +21,11 @@ export const useSelectedItemsForEffectMeasurement = <T extends UserItemInformati
     setSelectedItems(removedItemList);
   };
 
-  return { selectedItems, add, remove };
+  const updateDosage = (index: number, e: ChangeEvent<HTMLInputElement>) => {
+    const list = [...selectedItems];
+    list[index]['dosage'] = Number(e.target.value);
+    setSelectedItems(list);
+  };
+
+  return { selectedItems, add, remove, updateDosage };
 };

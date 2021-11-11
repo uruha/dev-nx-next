@@ -1,5 +1,5 @@
-import { KeyboardEvent } from 'react';
-import { useDosage } from "../hooks/useDosage";
+import { KeyboardEvent, useEffect } from 'react';
+// import { useDosage } from "../hooks/useDosage";
 import { useFeeling } from "../hooks/useFeeling";
 import { UseSelectedItemsForEffectMeasurement, useSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
 import { units, UserItemInformation } from "../libs/suggest-data";
@@ -12,20 +12,30 @@ type Props = {
 };
 
 const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }) => {
-  const hookUseDosage = useDosage(`${item.dosage}`);
-  item.dosage = Number(hookUseDosage.dosage);
+  console.log(5);
+  console.log('before');
+  console.log(item);
 
+  // const hookUseDosage = useDosage(`${item.dosage}`);
   const hookUseFeeling = useFeeling();
-  switch (hookUseFeeling.effect) {
-    case 'yes':
-      item.effect = true;
-      break;
-    case 'no':
-      item.effect = false;
-      break;
-    default:
-      item.effect = null;
-  }
+
+  useEffect(() => {
+    // item.dosage = Number(hookUseDosage.dosage);
+
+    switch (hookUseFeeling.effect) {
+      case 'yes':
+        item.effect = true;
+        break;
+      case 'no':
+        item.effect = false;
+        break;
+      default:
+        item.effect = null;
+    }
+  }, [hookUseFeeling.effect, item]);
+  
+  console.log('after');
+  console.log(item);
 
   return (
     <fieldset>
@@ -33,8 +43,8 @@ const CanBeEnteredItem: React.VFC<Props> = ({ item, listKey, hookSelectedItems }
       <div>
         <input
           type="text"
-          value={hookUseDosage.dosage}
-          onChange={hookUseDosage.changedDosage}
+          value={item.dosage}
+          onChange={e => hookSelectedItems.updateDosage(listKey, e)}
           onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Enter') e.preventDefault();
           }}

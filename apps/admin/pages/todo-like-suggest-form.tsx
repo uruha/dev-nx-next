@@ -20,8 +20,9 @@ const TodoLikeSuggestForm = () => {
   };
 
   const handleFreeTextRegister = () => {
-    if(hookInputValue.value.length === 0) return;
     // NOTE: 空白でも入力できるためバリデーションが必要
+    if(hookInputValue.value.length === 0) return;
+
     hookUseSelectedItemsForEffectMeasurement.add({
       name: hookInputValue.value,
       dosage: 0,

@@ -64,6 +64,7 @@ export interface ItemInformation {
 }
 
 export interface UserItemInformation extends ItemInformation {
+  // 微妙
   effect: 'Yes' | 'No' | 'NoJudgment';
 }
 

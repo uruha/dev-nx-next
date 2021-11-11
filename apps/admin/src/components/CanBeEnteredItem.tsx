@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect } from 'react';
+import { KeyboardEvent } from 'react';
 import { UseSelectedItemsForEffectMeasurement } from '../hooks/useSelectedItemsForEffectMeasurement';
 import { units, UserItemInformation } from "../libs/suggest-data";
 import OptionalSelect from "./OptionalSelect";

@@ -33,6 +33,16 @@ export function Index() {
             <a>to Selectable Suggestion form page</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/todo-like-suggest-form'}>
+            <a>to Todo like Suggestion form page</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/tag-list-like-suggest-form'}>
+            <a>to Tag List like Suggestion form page</a>
+          </Link>
+        </li>
       </ul>
     </>
   );

@@ -1,5 +1,5 @@
 import { EventContentArg } from "@fullcalendar/react";
-import { isEmptyObj } from "../pages/ex-calendar";
+import { isEmptyObj } from "./ExCellCalendar";
 
 import styles from './CustomDateCell.module.css';
 

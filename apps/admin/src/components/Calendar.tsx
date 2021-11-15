@@ -51,7 +51,7 @@ const handleClickEvent = (clickEventInfo: EventClickArg) => {
   });
 };
 
-const replaceDateADisplay = (eventInfo: DayCellContentArg) => {
+const replaceDateDisplay = (eventInfo: DayCellContentArg) => {
   eventInfo.dayNumberText = eventInfo.dayNumberText.replace('日', '');
 };
 
@@ -105,7 +105,7 @@ const Calendar = () => {
      * @NOTE
      * @see https://www.mitsue.co.jp/knowledge/blog/frontend/202012/08_0900.html
      */
-    dayCellContent={replaceDateADisplay}
+    dayCellContent={replaceDateDisplay}
   />
 };
 

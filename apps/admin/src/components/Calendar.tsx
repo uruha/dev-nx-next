@@ -1,6 +1,6 @@
 import Router from 'next/router';
 
-import FullCalendar, { DatesSetArg, EventClickArg, EventContentArg, EventSourceInput } from '@fullcalendar/react';
+import FullCalendar, { DatesSetArg, DayCellContentArg, EventClickArg, EventContentArg, EventSourceInput } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
@@ -51,6 +51,10 @@ const handleClickEvent = (clickEventInfo: EventClickArg) => {
   });
 };
 
+const replaceDateADisplay = (eventInfo: DayCellContentArg) => {
+  eventInfo.dayNumberText = eventInfo.dayNumberText.replace('日', '');
+};
+
 const customEventContent = (eventInfo: EventContentArg) => {
   console.log(eventInfo);
   return (
@@ -97,6 +101,11 @@ const Calendar = () => {
      */
     eventContent={customEventContent}
     eventClick={handleClickEvent}
+    /**
+     * @NOTE
+     * @see https://www.mitsue.co.jp/knowledge/blog/frontend/202012/08_0900.html
+     */
+    dayCellContent={replaceDateADisplay}
   />
 };
 

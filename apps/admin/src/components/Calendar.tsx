@@ -67,46 +67,48 @@ const customEventContent = (eventInfo: EventContentArg) => {
 }
 
 const Calendar = () => {
-  return <FullCalendar
-    // eslint-disable-next-line
-    // @ts-ignore
-    plugins={[
-      dayGridPlugin,
-      interactionPlugin
-    ]}
-    locale="ja"
-    /**
-     * @see https://fullcalendar.io/docs/initialEvents
-     * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう
-     */
-    events={events}
-    initialView='dayGridMonth'
-    validRange={{
-      end: `${twoMonthsAfterTheCurrentMonth}`
-    }}
-    headerToolbar={{
-      left: 'prev',
-      center: 'title',
-      right: 'next'
-    }}
-    /**
-     * @NOTE
-     * スクロールバー対策だと絶対値で割り切ったほうが良さそう
-     */
-    height={600}
-    dateClick={handleDateClick}
-    datesSet={handleChangeDate}
-    /**
-     * custom date cell
-     */
-    eventContent={customEventContent}
-    eventClick={handleClickEvent}
-    /**
-     * @NOTE
-     * @see https://www.mitsue.co.jp/knowledge/blog/frontend/202012/08_0900.html
-     */
-    dayCellContent={replaceDateDisplay}
-  />
+  return (<div className="simple-calendar">
+    <FullCalendar
+      // eslint-disable-next-line
+      // @ts-ignore
+      plugins={[
+        dayGridPlugin,
+        interactionPlugin
+      ]}
+      locale="ja"
+      /**
+       * @see https://fullcalendar.io/docs/initialEvents
+       * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう
+       */
+      events={events}
+      initialView='dayGridMonth'
+      validRange={{
+        end: `${twoMonthsAfterTheCurrentMonth}`
+      }}
+      headerToolbar={{
+        left: 'prev',
+        center: 'title',
+        right: 'next'
+      }}
+      /**
+       * @NOTE
+       * スクロールバー対策だと絶対値で割り切ったほうが良さそう
+       */
+      height="auto"
+      dateClick={handleDateClick}
+      datesSet={handleChangeDate}
+      /**
+       * custom date cell
+       */
+      eventContent={customEventContent}
+      eventClick={handleClickEvent}
+      /**
+       * @NOTE
+       * @see https://www.mitsue.co.jp/knowledge/blog/frontend/202012/08_0900.html
+       */
+      dayCellContent={replaceDateDisplay}
+    />
+  </div>)
 };
 
 export default Calendar;

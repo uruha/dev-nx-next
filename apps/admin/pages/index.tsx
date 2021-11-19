@@ -48,6 +48,11 @@ export function Index() {
             <a>to Tag List like Suggestion form page</a>
           </Link>
         </li>
+        <li>
+          <Link href={'/tag-list-like-suggest-form-2nd'}>
+            <a>to Tag List like Suggestion form page pattern 2</a>
+          </Link>
+        </li>
       </ul>
     </>
   );

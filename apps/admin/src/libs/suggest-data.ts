@@ -112,4 +112,11 @@ export const itemCandidates: ItemInformation[] = [
     unit: 'パイント',
     isMaster: true
   },
+  {
+    id: '7',
+    name: 'ながいながいながいながいながいながいながいながいながいながいながいながいながいながいながい名前のビール 500mL',
+    dosage: 0,
+    unit: 'パイント',
+    isMaster: true
+  },
 ];

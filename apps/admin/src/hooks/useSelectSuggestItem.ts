@@ -16,6 +16,11 @@ const initialItem: UserItemInformation = {
   effect: 'NoJudgment'
 }
 
+/**
+ * NOTE:
+ * 候補から任意のものを選択して一時的に state に永続化する hooks
+ * 候補から選択されたオブジェクトを扱う場合はこちらの suggestItem を使用する
+ */
 export const useSelectSuggestItem = (initialState = initialItem): UseSelectSuggestItem => {
   const [suggestItem, setSuggestItem] = useState(initialState);
 

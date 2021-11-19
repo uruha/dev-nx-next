@@ -18,9 +18,11 @@ const TodoLikeSuggestForm2nd = () => {
   const isSameName = hookUseSelectSuggestItem.suggestItem.name === hookInputValue.value;
 
   useEffect(() => {
+    // NOTE: 一度候補を入れた後候補名を編集した場合、候補を handle する hook を reset する
     if(!isSameName) {
       hookUseSelectSuggestItem.reset();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ hookInputValue.value ]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -32,6 +34,7 @@ const TodoLikeSuggestForm2nd = () => {
     // NOTE: 空白でも入力できるためバリデーションが必要
     if(hookInputValue.value.length === 0) return;
 
+    // NOTE: input に入力されている値が候補から選択したものか判断
     if(isMaster && isSameName) {
       hookUseSelectedItemsForEffectMeasurement.add(hookUseSelectSuggestItem.suggestItem);
 

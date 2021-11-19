@@ -6,7 +6,7 @@ import { useSelectSuggestItem } from '../src/hooks/useSelectSuggestItem';
 import { useSelectedItems } from '../src/hooks/useSelectedItems';
 import { itemCandidates, ItemInformation } from '../src/libs/suggest-data';
 
-const TodoLikeSuggestForm = () => {
+const TagListLikeLikeSuggestForm2nd = () => {
   const hookInputValue = useInputValue();
   const hookUseSelectSuggestItem = useSelectSuggestItem();
   const hookUseSelectedItems = useSelectedItems<ItemInformation>([]);
@@ -26,6 +26,7 @@ const TodoLikeSuggestForm = () => {
     // NOTE: 空白でも入力できるためバリデーションが必要
     if(hookInputValue.value.length === 0) return;
 
+    // NOTE: 候補に無いものは入力追加出来ない
     if(isMaster && isSameName) {
       hookUseSelectedItems.add(hookUseSelectSuggestItem.suggestItem);
 
@@ -68,4 +69,4 @@ const TodoLikeSuggestForm = () => {
   );
 };
 
-export default TodoLikeSuggestForm;
+export default TagListLikeLikeSuggestForm2nd;

@@ -154,6 +154,10 @@
   position: absolute;
 }
 
+/**
+  * 以下サジェストをポップアップの用に見せる対応
+  * カスタマイズはだいぶ融通が効きそう
+  */
 ul.react-autosuggest__suggestions-list {
   list-style-type: none;
   margin: 0;

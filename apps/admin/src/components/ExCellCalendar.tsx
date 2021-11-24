@@ -5,6 +5,10 @@ import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { dailyEventsData } from '../libs/ex-calendar-data';
 import { CustomEventContent } from './CustomDateCell';
 
+type Props = {
+  open: () => void;
+};
+
 export const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;
 
@@ -14,19 +18,21 @@ const dateNow = new Date();
 const nextMonthAfterTheCurrentMonth =
   `${dateNow.getFullYear()}-${dateNow.getMonth()+2}-01`;
 
-const handleDateClick = (info: DateClickArg) => {
-  console.log(info);
-};
+const ExCellCalendar: React.VFC<Props> = ({ open }) => {
+  const handleChangeDate = (dateInfo: DatesSetArg) => {
+    console.log(dateInfo);
+  };
 
-const handleChangeDate = (dateInfo: DatesSetArg) => {
-  console.log(dateInfo);
-};
-
-const handleClickEvent = (clickEventInfo: EventClickArg) => {
-  console.log(clickEventInfo);
-};
-
-export default function Index() {
+  const handleDateClick = (info: DateClickArg) => {
+    console.log(info);
+    open();
+  };
+  
+  const handleClickEvent = (clickEventInfo: EventClickArg) => {
+    console.log(clickEventInfo);
+    open();
+  };
+  
   return <FullCalendar
     // eslint-disable-next-line
     // @ts-ignore
@@ -59,3 +65,5 @@ export default function Index() {
     eventClick={handleClickEvent}
   />
 };
+
+export default ExCellCalendar;

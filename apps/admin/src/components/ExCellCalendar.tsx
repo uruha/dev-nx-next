@@ -6,7 +6,8 @@ import { dailyEventsData } from '../libs/ex-calendar-data';
 import { CustomEventContent } from './CustomDateCell';
 
 type Props = {
-  open: () => void;
+  sidePanelOpen: () => void;
+  selectMedaData: (data) => void;
 };
 
 export const isEmptyObj = (obj) => 
@@ -18,19 +19,24 @@ const dateNow = new Date();
 const nextMonthAfterTheCurrentMonth =
   `${dateNow.getFullYear()}-${dateNow.getMonth()+2}-01`;
 
-const ExCellCalendar: React.VFC<Props> = ({ open }) => {
+const ExCellCalendar: React.VFC<Props> = ({ sidePanelOpen, selectMedaData }) => {
   const handleChangeDate = (dateInfo: DatesSetArg) => {
-    console.log(dateInfo);
+    // console.log(dateInfo);
   };
 
   const handleDateClick = (info: DateClickArg) => {
-    console.log(info);
-    open();
+    // console.log(info);
   };
   
   const handleClickEvent = (clickEventInfo: EventClickArg) => {
+    const extendedProps = clickEventInfo.event._def.extendedProps;
+
     console.log(clickEventInfo);
-    open();
+
+    sidePanelOpen();
+    if(!isEmptyObj(extendedProps)) {
+      selectMedaData(extendedProps);
+    }
   };
   
   return <FullCalendar

@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
 import { SidePanel, Props } from '../components/SidePanel';
 
-type UseSidePanel = () => {
+export type UseSidePanel = {
     SidePanel: React.VFC<Props>;
     open: () => void;
     close: () => void;
     isOpen: boolean;
 };
 
-export const useSidePanel: UseSidePanel = () => {
+export const useSidePanel = (): UseSidePanel => {
     const [isOpen, setOpen] = useState<boolean>(false);
 
     const open = useCallback(() => {

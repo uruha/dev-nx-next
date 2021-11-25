@@ -22,7 +22,7 @@ export const SidePanel: React.VFC<Props> = ({
 
     const ref = document.getElementById('side-panel');
     const element = (
-        <div role="dialog" className={styles.container}>
+        <div role="complementary" className={styles.container}>
           <button onClick={close}>とじる</button>
           {children}
         </div>

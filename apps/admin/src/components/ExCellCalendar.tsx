@@ -33,8 +33,8 @@ const ExCellCalendar: React.VFC<Props> = ({ sidePanelOpen, selectMedaData }) => 
 
     console.log(clickEventInfo);
 
-    sidePanelOpen();
     if(!isEmptyObj(extendedProps)) {
+      sidePanelOpen();
       selectMedaData(extendedProps);
     }
   };

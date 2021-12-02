@@ -4,26 +4,19 @@ import Chart from 'react-apexcharts';
 const options: ApexOptions = {
   chart: {
     height: 350,
-    type: 'bar',
-    stacked: true,
+    type: 'line',
+    stacked: false,
+  },
+  dataLabels: {
+    enabled: true,
+    enabledOnSeries: [2]
   },
   stroke: {
-    width: [0, 2, 5]
+    width: [1, 1, 4]
   },
   plotOptions: {
     bar: {
       columnWidth: '50%'
-    }
-  },
-  fill: {
-    opacity: 1,
-    gradient: {
-      inverseColors: false,
-      shade: 'light',
-      type: "vertical",
-      opacityFrom: 0.85,
-      opacityTo: 0.55,
-      stops: [0, 100, 100, 100]
     }
   },
   labels: ['01/01/2021', '02/01/2021', '03/01/2021', '04/01/2021', '05/01/2021', '06/01/2021', '07/01/2021',
@@ -35,19 +28,50 @@ const options: ApexOptions = {
   xaxis: {
     type: 'datetime'
   },
-  yaxis: {
-    title: {
-      text: 'Points',
+  yaxis: [
+    {
+      seriesName: 'Action A',
+      title: {
+        text: 'Points'
+      }
     },
-    min: 0
-  },
+    {
+      seriesName: 'Action B',
+      title: {
+        text: 'Points'
+      },
+      show: false
+    },
+    {
+      seriesName: 'Degree',
+      opposite: true,
+      axisTicks: {
+        show: true,
+      },
+      axisBorder: {
+        show: true,
+        color: '#FEB019'
+      },
+      labels: {
+        style: {
+          colors: '#FEB019',
+        },
+      },
+      title: {
+        text: 'Degree',
+        style: {
+          color: '#FEB019',
+        }
+      }
+    }
+  ],
   tooltip: {
     shared: true,
     intersect: false,
     y: {
       formatter: function (y) {
         if (typeof y !== "undefined") {
-          return y.toFixed(0) + " points";
+          return y.toFixed(0) + " times";
         }
         return y;
       }
@@ -56,27 +80,27 @@ const options: ApexOptions = {
 };
 
 const series = [{
-  name: 'Column A',
+  name: 'Action A',
+  type: 'column',
+  data: [23, 110, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+}, {
+  name: 'Action B',
   type: 'column',
   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
 }, {
-  name: 'Column B',
-  type: 'column',
-  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-}, {
-  name: 'Line',
+  name: 'Degree',
   type: 'line',
-  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
+  data: [3, 4, 10, 1, 0, 2, 4, 5, 8, 3, 7]
 }];
 
 const ApexCharts = () => {
   return (
-    <div id="apex">
+    <>
       <Chart
         options={options}
         series={series}
       />
-    </div>
+    </>
   );
 };
 

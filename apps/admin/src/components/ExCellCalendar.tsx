@@ -5,6 +5,11 @@ import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { dailyEventsData } from '../libs/ex-calendar-data';
 import { CustomEventContent } from './CustomDateCell';
 
+type Props = {
+  sidePanelOpen: () => void;
+  selectMedaData: (data) => void;
+};
+
 export const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;
 
@@ -14,19 +19,26 @@ const dateNow = new Date();
 const nextMonthAfterTheCurrentMonth =
   `${dateNow.getFullYear()}-${dateNow.getMonth()+2}-01`;
 
-const handleDateClick = (info: DateClickArg) => {
-  console.log(info);
-};
+const ExCellCalendar: React.VFC<Props> = ({ sidePanelOpen, selectMedaData }) => {
+  // const handleChangeDate = (dateInfo: DatesSetArg) => {
+  //   console.log(dateInfo);
+  // };
 
-const handleChangeDate = (dateInfo: DatesSetArg) => {
-  console.log(dateInfo);
-};
+  // const handleDateClick = (info: DateClickArg) => {
+  //   console.log(info);
+  // };
+  
+  const handleClickEvent = (clickEventInfo: EventClickArg) => {
+    const extendedProps = clickEventInfo.event._def.extendedProps;
 
-const handleClickEvent = (clickEventInfo: EventClickArg) => {
-  console.log(clickEventInfo);
-};
+    console.log(clickEventInfo);
 
-export default function Index() {
+    if(!isEmptyObj(extendedProps)) {
+      sidePanelOpen();
+      selectMedaData(extendedProps);
+    }
+  };
+  
   return <FullCalendar
     // eslint-disable-next-line
     // @ts-ignore
@@ -50,8 +62,8 @@ export default function Index() {
       right: ''
     }}
     contentHeight='auto'
-    dateClick={handleDateClick}
-    datesSet={handleChangeDate}
+    // dateClick={handleDateClick}
+    // datesSet={handleChangeDate}
     /**
      * custom date cell
      */
@@ -59,3 +71,5 @@ export default function Index() {
     eventClick={handleClickEvent}
   />
 };
+
+export default ExCellCalendar;

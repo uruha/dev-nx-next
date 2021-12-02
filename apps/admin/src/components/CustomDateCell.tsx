@@ -4,7 +4,7 @@ import { isEmptyObj } from "./ExCellCalendar";
 import styles from './CustomDateCell.module.css';
 
 export const CustomEventContent = (eventInfo: EventContentArg) => {
-  console.log(eventInfo);
+  // console.log(eventInfo);
 
   if (isEmptyObj(eventInfo.event.extendedProps)) {
     return;

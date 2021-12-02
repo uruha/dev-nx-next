@@ -20,13 +20,13 @@ const nextMonthAfterTheCurrentMonth =
   `${dateNow.getFullYear()}-${dateNow.getMonth()+2}-01`;
 
 const ExCellCalendar: React.VFC<Props> = ({ sidePanelOpen, selectMedaData }) => {
-  const handleChangeDate = (dateInfo: DatesSetArg) => {
-    // console.log(dateInfo);
-  };
+  // const handleChangeDate = (dateInfo: DatesSetArg) => {
+  //   console.log(dateInfo);
+  // };
 
-  const handleDateClick = (info: DateClickArg) => {
-    // console.log(info);
-  };
+  // const handleDateClick = (info: DateClickArg) => {
+  //   console.log(info);
+  // };
   
   const handleClickEvent = (clickEventInfo: EventClickArg) => {
     const extendedProps = clickEventInfo.event._def.extendedProps;
@@ -62,8 +62,8 @@ const ExCellCalendar: React.VFC<Props> = ({ sidePanelOpen, selectMedaData }) => 
       right: ''
     }}
     contentHeight='auto'
-    dateClick={handleDateClick}
-    datesSet={handleChangeDate}
+    // dateClick={handleDateClick}
+    // datesSet={handleChangeDate}
     /**
      * custom date cell
      */

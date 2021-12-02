@@ -24,6 +24,7 @@ const SampleExCalendar = () => {
       </div>
       <div id="side-panel">
        <SampleMetaData.SidePanel>
+         {/* 必要なデータをここで表示させる */}
          <ul>
            <li>
             {!isEmptyObj(hookUseCarryData.selectedData.first) && (

@@ -1,6 +1,44 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
+const actionAData = {
+  name: 'Action A',
+  type: 'column',
+  data: [23, 110, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+};
+
+const actionBData = {
+  name: 'Action B',
+  type: 'column',
+  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+};
+
+const actionCData = {
+  name: 'Action C',
+  type: 'column',
+  data: [10, 74, 34, 7, 53, 33, 87, 26, 34, 12, 38]
+};
+
+const Degree = {
+  name: 'Degree',
+  type: 'line',
+  data: [3, 4, 10, 1, 0, 2, 4, 5, 8, 3, 7]
+};
+
+const actionsData = [actionAData, actionBData, actionCData];
+
+const getTheHighestValue = (a, b) => Math.max(a, b);
+const maximumValueOfEach = actionsData.map((c) => c.data.reduce(getTheHighestValue));
+const maxValue = maximumValueOfEach.reduce(getTheHighestValue);
+const stackedMaxValue = maximumValueOfEach.reduce((sum, value) => sum + value, 0);
+
+const series = [
+  actionAData,
+  actionBData,
+  actionCData,
+  Degree
+];
+
 const options: ApexOptions = {
   chart: {
     height: 350,
@@ -9,14 +47,14 @@ const options: ApexOptions = {
   },
   dataLabels: {
     enabled: true,
-    enabledOnSeries: [2]
+    enabledOnSeries: [0, 1, 2, 3]
   },
   stroke: {
-    width: [1, 1, 4]
+    width: [1, 1, 1, 4]
   },
   plotOptions: {
     bar: {
-      columnWidth: '50%'
+      columnWidth: '70%'
     }
   },
   labels: ['01/01/2021', '02/01/2021', '03/01/2021', '04/01/2021', '05/01/2021', '06/01/2021', '07/01/2021',
@@ -33,14 +71,28 @@ const options: ApexOptions = {
       seriesName: 'Action A',
       title: {
         text: 'Points'
-      }
+      },
+      show: true,
+      max: maxValue
+      // max: stackedMaxValue
     },
     {
       seriesName: 'Action B',
       title: {
         text: 'Points'
       },
-      show: false
+      show: false,
+      // max: maxValue
+      max: stackedMaxValue
+    },
+    {
+      seriesName: 'Action C',
+      title: {
+        text: 'Points'
+      },
+      show: false,
+      // max: maxValue
+      max: stackedMaxValue
     },
     {
       seriesName: 'Degree',
@@ -50,17 +102,17 @@ const options: ApexOptions = {
       },
       axisBorder: {
         show: true,
-        color: '#FEB019'
+        color: '#ff4862'
       },
       labels: {
         style: {
-          colors: '#FEB019',
+          colors: '#ff4862',
         },
       },
       title: {
         text: 'Degree',
         style: {
-          color: '#FEB019',
+          color: '#ff4862',
         }
       }
     }
@@ -78,20 +130,6 @@ const options: ApexOptions = {
     }
   }
 };
-
-const series = [{
-  name: 'Action A',
-  type: 'column',
-  data: [23, 110, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-}, {
-  name: 'Action B',
-  type: 'column',
-  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-}, {
-  name: 'Degree',
-  type: 'line',
-  data: [3, 4, 10, 1, 0, 2, 4, 5, 8, 3, 7]
-}];
 
 const ApexCharts = () => {
   return (

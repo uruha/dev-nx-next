@@ -43,7 +43,7 @@ const options: ApexOptions = {
   chart: {
     height: 350,
     type: 'line',
-    stacked: false,
+    stacked: true,
   },
   dataLabels: {
     enabled: true,
@@ -73,8 +73,8 @@ const options: ApexOptions = {
         text: 'Points'
       },
       show: true,
-      max: maxValue
-      // max: stackedMaxValue
+      // max: maxValue
+      max: stackedMaxValue
     },
     {
       seriesName: 'Action B',

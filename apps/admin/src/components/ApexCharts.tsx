@@ -1,6 +1,5 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
-import { isReturnStatement } from 'typescript';
 
 const actionAData = {
   name: 'Action A',

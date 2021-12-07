@@ -29,7 +29,8 @@ const Degree = {
 const Fragmented = {
   name: 'Fragmented',
   type: 'area',
-  data: [10, 10, null, 10, 10, 10, null, 10, 10, 10, null, null]
+  // data: [10, 10, null, 10, 10, 10, null, 10, 10, 10, null, null]
+  data: [-1, -1, null, -1, -1, -1, null, -1, -1, -1, null, -1]
 };
 
 const actionsData = [actionAData, actionBData, actionCData];
@@ -52,6 +53,9 @@ const options: ApexOptions = {
     height: 350,
     type: 'line',
     stacked: true,
+    zoom: {
+      enabled: false
+    }
   },
   dataLabels: {
     enabled: true,
@@ -69,12 +73,13 @@ const options: ApexOptions = {
     '08/01/2021', '09/01/2021', '10/01/2021', '11/01/2021', '12/01/2021'
   ],
   markers: {
-    size: 0
+    size: [0, 0, 0, 0, 6]
   },
   xaxis: {
     type: 'datetime'
   },
   yaxis: [
+    // Action A
     {
       seriesName: 'Action A',
       title: {
@@ -82,8 +87,9 @@ const options: ApexOptions = {
       },
       show: true,
       // max: maxValue
-      max: stackedMaxValue
+      max: stackedMaxValue,
     },
+    // Action B
     {
       seriesName: 'Action B',
       title: {
@@ -93,6 +99,7 @@ const options: ApexOptions = {
       // max: maxValue
       max: stackedMaxValue
     },
+    // Action C
     {
       seriesName: 'Action C',
       title: {
@@ -102,6 +109,7 @@ const options: ApexOptions = {
       // max: maxValue
       max: stackedMaxValue
     },
+    // Degree
     {
       seriesName: 'Degree',
       max: maxDegreeValue,
@@ -125,10 +133,12 @@ const options: ApexOptions = {
         }
       }
     },
+    // Fragmented
     {
       seriesName: 'Fragmented',
       show: false,
-      max: 10
+      max: 0,
+      min: -20
     },
   ],
   tooltip: {
@@ -143,6 +153,41 @@ const options: ApexOptions = {
         }
         return y;
       }
+    }
+  },
+  annotations: {
+    position: 'back',
+    xaxis: [
+      {
+        // エポックミリ秒じゃないと駄目っぽい
+        x: new Date('01/01/2021').getTime(),
+        x2: new Date('04/01/2021').getTime(),
+        fillColor: '#B3F7CA',
+        label: {
+          text: 'range'
+        }
+      },
+      {
+        x: new Date('08/01/2021').getTime(),
+        x2: new Date('09/01/2021').getTime(),
+        fillColor: '#B3F7CA',
+        label: {
+          text: 'range'
+        }
+      }
+    ]
+  },
+  fill: {
+    type: [
+      'solid',
+      'solid',
+      'solid',
+      'solid',
+      'pattern'
+    ],
+    pattern: {
+      style: 'verticalLines',
+      strokeWidth: 6
     }
   }
 };

@@ -84,15 +84,15 @@ const options: ApexOptions = {
     enabledOnSeries: [0, 1, 2, 3]
   },
   stroke: {
-    width: [1, 1, 1, 4]
+    width: [1, 1, 1, 3]
   },
   plotOptions: {
     bar: {
-      columnWidth: '70%'
+      columnWidth: '60%'
     }
   },
   markers: {
-    size: [0, 0, 0, 0, 6]
+    size: 0
   },
   xaxis: {
     type: 'datetime',
@@ -172,7 +172,7 @@ const options: ApexOptions = {
         // エポックミリ秒じゃないと駄目っぽい
         // x: new Date('12/01/2021').getTime(),
         // x2: new Date('12/05/2021').getTime(),
-        x: Date.parse('12/01/2021 UTC'),
+        x: Date.parse('11/29/2021 UTC'),
         x2: Date.parse('12/05/2021 UTC'),
         fillColor: '#B3F7CA',
         label: {

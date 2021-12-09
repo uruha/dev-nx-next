@@ -1,17 +1,7 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
-const createMonthlyDays = (start: Date, end: Date) => {
-  const dateList: number[] = [];
-
-  for(const d = start; d <= end; d.setDate(d.getDate()+1)) {
-    const formatedDate = `${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()} UTC`;
-    const formatedTimestamp = Date.parse(formatedDate);
-    dateList.push(formatedTimestamp);
-  }
-  return dateList;
-};
-
+/** sample util */
 const createRandomValues = (max: number, length: number) => {
   const values: number[] = [];
 
@@ -23,6 +13,18 @@ const createRandomValues = (max: number, length: number) => {
   return values;
 }
 
+/** Date and time adjustment */
+const createMonthlyDays = (start: Date, end: Date) => {
+  const dateList: number[] = [];
+
+  for(const d = start; d <= end; d.setDate(d.getDate()+1)) {
+    const formatedDate = `${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()} UTC`;
+    const formatedTimestamp = Date.parse(formatedDate);
+    dateList.push(formatedTimestamp);
+  }
+  return dateList;
+};
+
 const monthlyDays = createMonthlyDays(
   new Date('2021-12-1'),
   new Date('2021-12-31')
@@ -30,22 +32,30 @@ const monthlyDays = createMonthlyDays(
 
 const dayCount = monthlyDays.length;
 
+/** Color set */
+const actionAHex = '#009944';
+const actionBHex = '#79c06e';
+const actionCHex = '#bee0c2';
+const lineHex    = '#ff4862';
+const rangeHex   = '#ffdc00';
+
+/** Data set */
 const actionAData = {
   name: 'Action A',
   type: 'column',
-  data: createRandomValues(100, dayCount)
+  data: createRandomValues(50, dayCount)
 };
 
 const actionBData = {
   name: 'Action B',
   type: 'column',
-  data: createRandomValues(100, dayCount)
+  data: createRandomValues(50, dayCount)
 };
 
 const actionCData = {
   name: 'Action C',
   type: 'column',
-  data: createRandomValues(100, dayCount)
+  data: createRandomValues(50, dayCount)
 };
 
 const Degree = {
@@ -75,24 +85,65 @@ const options: ApexOptions = {
     height: 200,
     type: 'line',
     stacked: true,
-    zoom: {
-      enabled: false
+    toolbar: {
+      show: false
+    }
+  },
+  /**
+   * @see https://apexcharts.com/docs/colors/
+   * base colors for serise data order
+   */
+  colors: [
+    actionAHex,
+    actionBHex,
+    actionCHex,
+    lineHex
+  ],
+  /**
+   * @see https://apexcharts.com/docs/options/legend/
+   */
+  legend: {
+    position: 'top',
+    horizontalAlign: 'left',
+    markers: {
+      radius: 0
+    },
+    onItemClick: {
+      toggleDataSeries: false
     }
   },
   dataLabels: {
     enabled: true,
-    enabledOnSeries: [0, 1, 2, 3]
-  },
-  stroke: {
-    width: [1, 1, 1, 3]
-  },
-  plotOptions: {
-    bar: {
-      columnWidth: '60%'
+    enabledOnSeries: [0, 1, 2],
+    background: {
+      padding: 0,
+      borderWidth: 0,
+      borderRadius: 0,
+      dropShadow: {
+        enabled: false
+      }
     }
   },
   markers: {
     size: 0
+  },
+  stroke: {
+    width: [0, 0, 0, 2]
+  },
+  plotOptions: {
+    bar: {
+      columnWidth: '80%',
+      dataLabels: {
+        position: 'center'
+      }
+    }
+  },
+  fill: {
+    colors: [
+      actionAHex,
+      actionBHex,
+      actionCHex
+    ]
   },
   xaxis: {
     type: 'datetime',
@@ -136,17 +187,17 @@ const options: ApexOptions = {
       },
       axisBorder: {
         show: true,
-        color: '#ff4862'
+        color: lineHex
       },
       labels: {
         style: {
-          colors: '#ff4862',
+          colors: lineHex,
         },
       },
       title: {
         text: 'Degree',
         style: {
-          color: '#ff4862',
+          color: lineHex,
         }
       }
     }
@@ -174,18 +225,22 @@ const options: ApexOptions = {
         // x2: new Date('12/05/2021').getTime(),
         x: Date.parse('11/29/2021 UTC'),
         x2: Date.parse('12/05/2021 UTC'),
-        fillColor: '#B3F7CA',
+        fillColor: rangeHex,
         label: {
-          text: 'range'
+          text: 'range',
+          textAnchor: 'start',
+          orientation: 'horizontal'
         }
       },
       {
         // 上記とどっちでも行ける
         x: new Date('12/20/2021 UTC').getTime(),
         x2: new Date('12/26/2021 UTC').getTime(),
-        fillColor: '#B3F7CA',
+        fillColor: rangeHex,
         label: {
-          text: 'range'
+          text: 'range',
+          textAnchor: 'start',
+          orientation: 'horizontal'
         }
       }
     ]

@@ -26,7 +26,7 @@ const createMonthlyDays = (start: Date, end: Date) => {
 };
 
 const monthlyDays = createMonthlyDays(
-  new Date('2021-12-1'),
+  new Date('2021-12-01'),
   new Date('2021-12-31')
 );
 

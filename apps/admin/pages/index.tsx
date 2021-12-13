@@ -15,12 +15,17 @@ export function Index() {
         </li>
         <li>
           <Link href={'/chart'}>
-            <a>to Chart page</a>
+            <a>to Chart page by Chart.js</a>
           </Link>
         </li>
         <li>
           <Link href={'/apex-charts'}>
             <a>to ApexCharts page</a>
+          </Link>
+        </li>
+        <li>
+          <Link href={'/monthly-charts'}>
+            <a>to Monthly Charts by ApexCharts</a>
           </Link>
         </li>
         <li>

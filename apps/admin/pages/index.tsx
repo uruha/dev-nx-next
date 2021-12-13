@@ -29,6 +29,11 @@ export function Index() {
           </Link>
         </li>
         <li>
+          <Link href={'/any-range-charts'}>
+            <a>to Any Monthly Charts by ApexCharts</a>
+          </Link>
+        </li>
+        <li>
           <Link href={'/calendar'}>
             <a>to Calendar page</a>
           </Link>

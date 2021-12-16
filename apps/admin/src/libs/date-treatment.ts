@@ -75,7 +75,7 @@ const getThirteenWeeksWorthOfDays = (length = 13): Dayjs[] => {
   return lastThreeMonthsSaturday;
 };
 
-const lastSaturdayOfTheLastThreeMonths = getThirteenWeeksWorthOfDays()[13].endOf('hour');
+const lastSaturdayOfTheLastThreeMonths = getThirteenWeeksWorthOfDays()[13].endOf('day');
 
 const thirteenWeeksWorthOfDays = getThirteenWeeksWorthOfDays();
 thirteenWeeksWorthOfDays.splice(13, 13, lastSaturdayOfTheLastThreeMonths);

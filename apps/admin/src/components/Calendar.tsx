@@ -4,6 +4,14 @@ import FullCalendar, { DatesSetArg, DayCellContentArg, EventClickArg, EventConte
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('Asia/Tokyo');
+
 const isEmptyObj = (obj) => 
   Object.keys(obj).length === 0 && obj.constructor === Object;
 
@@ -20,9 +28,8 @@ const events: EventSourceInput = [
   }
 ];
 
-const dateNow = new Date();
-const twoMonthsAfterTheCurrentMonth =
-  `${dateNow.getFullYear()}-${dateNow.getMonth()+3}-01`;
+const currentDateAndTime = dayjs().tz();
+const twoMonthsAfterTheCurrentMonth = currentDateAndTime.add(2, 'M').startOf('month').format('YYYY-MM-DD');
 
 const handleDateClick = (info: DateClickArg) => {
   console.log(info);
@@ -30,23 +37,34 @@ const handleDateClick = (info: DateClickArg) => {
     pathname: '/daily-events/list',
     query: {
       date: info.dateStr
+      // YYYY-MM-DD
     }
   });
 };
 
-const handleChangeDate = (dateInfo: DatesSetArg) => {
+const handleDatesSet = (dateInfo: DatesSetArg) => {
+  const FirstDayOfTheCalendar = dayjs(dateInfo.start).tz().format('YYYY-MM-DD');
+  const LastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').format('YYYY-MM-DD');
+  const NumbersForTheFirstDay = dayjs(dateInfo.start).tz().format('DD');
+  const YearAndMonthOfTheSelectedCalendar =
+    NumbersForTheFirstDay === '01' ?
+    dayjs(dateInfo.start).tz().format('YYYY-MM') :
+    dayjs(dateInfo.start).tz().add(1, 'M').format('YYYY-MM');
+
   console.log(dateInfo);
-  console.log(`current Year: ${dateInfo.view.currentStart.getFullYear()}`);
-  console.log(`current month: ${dateInfo.view.currentStart.getMonth()+1}`);
+  console.log(`current Year & Month: ${YearAndMonthOfTheSelectedCalendar}`);
+  console.log(`Calendar start day: ${FirstDayOfTheCalendar}`);
+  console.log(`Calendar end day: ${LastDayOfTheCalendar}`);
 };
 
 const handleClickEvent = (clickEventInfo: EventClickArg) => {
   console.log(clickEventInfo);
-  console.log(clickEventInfo.event.startStr);
+
   Router.push({
     pathname: '/daily-events/list',
     query: {
       date: clickEventInfo.event.startStr
+      // YYYY-MM-DD
     }
   });
 };
@@ -75,7 +93,8 @@ const Calendar = () => {
         dayGridPlugin,
         interactionPlugin
       ]}
-      locale="ja"
+      locale='ja'
+      timeZone='Asia/Tokyo'
       /**
        * @see https://fullcalendar.io/docs/initialEvents
        * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう
@@ -96,7 +115,7 @@ const Calendar = () => {
        */
       height="auto"
       dateClick={handleDateClick}
-      datesSet={handleChangeDate}
+      datesSet={handleDatesSet}
       /**
        * custom date cell
        */

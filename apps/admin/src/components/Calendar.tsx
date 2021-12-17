@@ -31,17 +31,6 @@ const events: EventSourceInput = [
 const currentDateAndTime = dayjs().tz();
 const twoMonthsAfterTheCurrentMonth = currentDateAndTime.add(2, 'M').startOf('month').format('YYYY-MM-DD');
 
-const handleDateClick = (info: DateClickArg) => {
-  console.log(info);
-  Router.push({
-    pathname: '/daily-events/list',
-    query: {
-      date: info.dateStr
-      // YYYY-MM-DD
-    }
-  });
-};
-
 const handleDatesSet = (dateInfo: DatesSetArg) => {
   const FirstDayOfTheCalendar = dayjs(dateInfo.start).tz().format('YYYY-MM-DD');
   const LastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').format('YYYY-MM-DD');
@@ -57,6 +46,21 @@ const handleDatesSet = (dateInfo: DatesSetArg) => {
   console.log(`Calendar end day: ${LastDayOfTheCalendar}`);
 };
 
+const replaceDateDisplay = (eventInfo: DayCellContentArg) => {
+  eventInfo.dayNumberText = eventInfo.dayNumberText.replace('日', '');
+};
+
+const handleDateClick = (info: DateClickArg) => {
+  console.log(info);
+  Router.push({
+    pathname: '/daily-events/list',
+    query: {
+      date: info.dateStr
+      // YYYY-MM-DD
+    }
+  });
+};
+
 const handleClickEvent = (clickEventInfo: EventClickArg) => {
   console.log(clickEventInfo);
 
@@ -67,10 +71,6 @@ const handleClickEvent = (clickEventInfo: EventClickArg) => {
       // YYYY-MM-DD
     }
   });
-};
-
-const replaceDateDisplay = (eventInfo: DayCellContentArg) => {
-  eventInfo.dayNumberText = eventInfo.dayNumberText.replace('日', '');
 };
 
 const customEventContent = (eventInfo: EventContentArg) => {
@@ -115,6 +115,9 @@ const Calendar = () => {
        */
       height="auto"
       dateClick={handleDateClick}
+      /**
+       * @see https://fullcalendar.io/docs/datesSet
+       */
       datesSet={handleDatesSet}
       /**
        * custom date cell

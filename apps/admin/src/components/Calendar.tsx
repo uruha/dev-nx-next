@@ -32,18 +32,18 @@ const currentDateAndTime = dayjs().tz();
 const twoMonthsAfterTheCurrentMonth = currentDateAndTime.add(2, 'M').startOf('month').format('YYYY-MM-DD');
 
 const handleDatesSet = (dateInfo: DatesSetArg) => {
-  const FirstDayOfTheCalendar = dayjs(dateInfo.start).tz().format('YYYY-MM-DD');
-  const LastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').format('YYYY-MM-DD');
-  const NumbersForTheFirstDay = dayjs(dateInfo.start).tz().format('DD');
-  const YearAndMonthOfTheSelectedCalendar =
-    NumbersForTheFirstDay === '01' ?
+  const firstDayOfTheCalendar = dayjs(dateInfo.start).tz().format('YYYY-MM-DD');
+  const lastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').format('YYYY-MM-DD');
+  const numbersForTheFirstDay = dayjs(dateInfo.start).tz().format('DD');
+  const yearAndMonthOfTheSelectedCalendar =
+    numbersForTheFirstDay === '01' ?
     dayjs(dateInfo.start).tz().format('YYYY-MM') :
     dayjs(dateInfo.start).tz().add(1, 'M').format('YYYY-MM');
 
   console.log(dateInfo);
-  console.log(`current Year & Month: ${YearAndMonthOfTheSelectedCalendar}`);
-  console.log(`Calendar start day: ${FirstDayOfTheCalendar}`);
-  console.log(`Calendar end day: ${LastDayOfTheCalendar}`);
+  console.log(`current Year & Month: ${yearAndMonthOfTheSelectedCalendar}`);
+  console.log(`Calendar start day: ${firstDayOfTheCalendar}`);
+  console.log(`Calendar end day: ${lastDayOfTheCalendar}`);
 };
 
 const replaceDateDisplay = (eventInfo: DayCellContentArg) => {

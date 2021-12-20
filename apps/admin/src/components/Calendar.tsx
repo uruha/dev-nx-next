@@ -32,8 +32,8 @@ const currentDateAndTime = dayjs().tz();
 const twoMonthsAfterTheCurrentMonth = currentDateAndTime.add(2, 'M').startOf('month').format('YYYY-MM-DD');
 
 const handleDatesSet = (dateInfo: DatesSetArg) => {
-  const firstDayOfTheCalendar = dayjs(dateInfo.start).tz().format('YYYY-MM-DD');
-  const lastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').format('YYYY-MM-DD');
+  const firstDayOfTheCalendar = dayjs(dateInfo.start).startOf('hour').format();
+  const lastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').endOf('hour').format();
   const numbersForTheFirstDay = dayjs(dateInfo.start).tz().format('DD');
   const yearAndMonthOfTheSelectedCalendar =
     numbersForTheFirstDay === '01' ?
@@ -94,7 +94,7 @@ const Calendar = () => {
         interactionPlugin
       ]}
       locale='ja'
-      timeZone='Asia/Tokyo'
+      // timeZone='Asia/Tokyo'
       /**
        * @see https://fullcalendar.io/docs/initialEvents
        * initialEvents だとカレンダー上の操作などで情報が更新されないので events に寄せておいたほうが良さそう

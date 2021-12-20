@@ -1,36 +1,13 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
-/** sample util */
-const createRandomValues = (max: number, length: number) => {
-  const values: number[] = [];
+import { createRandomValues } from '../libs/graph-utils';
+import { getTheDateAndTimeOfOneMonth } from '../libs/date-treatment';
 
-  for(let i = 0; i < length; i++) {
-    values.push(
-      Math.floor(Math.random() * Math.floor(max))
-    );
-  }
-  return values;
-}
+const { dateList } = getTheDateAndTimeOfOneMonth();
 
-/** Date and time adjustment */
-const createMonthlyDays = (start: Date, end: Date) => {
-  const dateList: number[] = [];
-
-  for(const d = start; d <= end; d.setDate(d.getDate()+1)) {
-    const formatedDate = `${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()} UTC`;
-    const formatedTimestamp = Date.parse(formatedDate);
-    dateList.push(formatedTimestamp);
-  }
-  return dateList;
-};
-
-const monthlyDays = createMonthlyDays(
-  new Date('2021-12-01'),
-  new Date('2021-12-31')
-);
-
-const dayCount = monthlyDays.length;
+const dateLabels = dateList;
+const dayCount = dateLabels.length;
 
 /** Color set */
 const actionAHex = '#009944';
@@ -147,7 +124,7 @@ const options: ApexOptions = {
   },
   xaxis: {
     type: 'datetime',
-    categories: monthlyDays
+    categories: dateLabels
   },
   yaxis: [
     // Action A

@@ -1,21 +1,12 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
-import { threeMonthRange } from '../libs/date-treatment';
+import { createRandomValues } from '../libs/graph-utils';
+import { getTheDateAndTimeOfThreeMonth } from '../libs/date-treatment';
 
-/** sample util */
-const createRandomValues = (max: number, length: number) => {
-  const values: number[] = [];
+const { dateList } = getTheDateAndTimeOfThreeMonth();
 
-  for(let i = 0; i < length; i++) {
-    values.push(
-      Math.floor(Math.random() * Math.floor(max))
-    );
-  }
-  return values;
-}
-
-const monthlyDays = threeMonthRange.map(d => d.format('YYYY-MM-DD'));
+const monthlyDays = dateList;
 const dayCount = monthlyDays.length;
 
 /** Color set */

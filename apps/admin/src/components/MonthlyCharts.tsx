@@ -35,7 +35,7 @@ const actionCData = {
   data: createRandomValues(50, dayCount)
 };
 
-const Degree = {
+const degree = {
   name: 'Degree',
   type: 'line',
   data: createRandomValues(10, dayCount)
@@ -45,7 +45,7 @@ const actionsData = [actionAData, actionBData, actionCData];
 
 const getTheHighestValue = (a, b) => Math.max(a, b);
 const maximumValueOfEach = actionsData.map((c) => c.data.reduce(getTheHighestValue));
-const maxDegreeValue = Degree.data.reduce(getTheHighestValue) + 2;
+const maxDegreeValue = degree.data.reduce(getTheHighestValue) + 2;
 const stackedMaxValue = maximumValueOfEach.reduce((sum, value) => sum + value, 0);
 
 /** serise */
@@ -53,7 +53,7 @@ const series = [
   actionAData,
   actionBData,
   actionCData,
-  Degree
+  degree
 ];
 
 /** options */

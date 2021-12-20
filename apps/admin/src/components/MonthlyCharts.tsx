@@ -124,7 +124,10 @@ const options: ApexOptions = {
   },
   xaxis: {
     type: 'datetime',
-    categories: dateLabels
+    categories: dateLabels,
+    labels: {
+      format: 'yy/MM/dd'
+    }
   },
   yaxis: [
     // Action A
@@ -184,6 +187,9 @@ const options: ApexOptions = {
     enabledOnSeries: [0, 1, 2, 3],
     shared: true,
     intersect: false,
+    x: {
+      format: 'yy/MM/dd',
+    },
     y: {
       formatter: function (y) {
         if (typeof y !== "undefined") {

@@ -124,7 +124,7 @@ export const getTheDateAndTimeOfThreeMonth = (target?: string) => {
   thirteenWeeksWorthOfDays.splice(13, 13, lastSaturdayOfTheLastThreeMonths);
 
   // formated
-  const startDay = start.format();
+  const startDay = firstSunday.format();
   const endDay = lastSaturdayOfTheLastThreeMonths.format();
   const dateList = thirteenWeeksWorthOfDays.map(d => d.format('YYYY-MM-DD'));
 

@@ -1,36 +1,13 @@
 import { ApexOptions } from 'apexcharts';
 import Chart from 'react-apexcharts';
 
-/** sample util */
-const createRandomValues = (max: number, length: number) => {
-  const values: number[] = [];
+import { createRandomValues } from '../libs/graph-utils';
+import { getTheDateAndTimeOfOneMonth } from '../libs/date-treatment';
 
-  for(let i = 0; i < length; i++) {
-    values.push(
-      Math.floor(Math.random() * Math.floor(max))
-    );
-  }
-  return values;
-}
+const { dateList } = getTheDateAndTimeOfOneMonth();
 
-/** Date and time adjustment */
-const createMonthlyDays = (start: Date, end: Date) => {
-  const dateList: number[] = [];
-
-  for(const d = start; d <= end; d.setDate(d.getDate()+1)) {
-    const formatedDate = `${d.getFullYear()}-${(d.getMonth()+1)}-${d.getDate()} UTC`;
-    const formatedTimestamp = Date.parse(formatedDate);
-    dateList.push(formatedTimestamp);
-  }
-  return dateList;
-};
-
-const monthlyDays = createMonthlyDays(
-  new Date('2021-12-01'),
-  new Date('2021-12-31')
-);
-
-const dayCount = monthlyDays.length;
+const dateLabels = dateList;
+const dayCount = dateLabels.length;
 
 /** Color set */
 const actionAHex = '#009944';
@@ -58,7 +35,7 @@ const actionCData = {
   data: createRandomValues(50, dayCount)
 };
 
-const Degree = {
+const degree = {
   name: 'Degree',
   type: 'line',
   data: createRandomValues(10, dayCount)
@@ -68,7 +45,7 @@ const actionsData = [actionAData, actionBData, actionCData];
 
 const getTheHighestValue = (a, b) => Math.max(a, b);
 const maximumValueOfEach = actionsData.map((c) => c.data.reduce(getTheHighestValue));
-const maxDegreeValue = Degree.data.reduce(getTheHighestValue) + 2;
+const maxDegreeValue = degree.data.reduce(getTheHighestValue) + 2;
 const stackedMaxValue = maximumValueOfEach.reduce((sum, value) => sum + value, 0);
 
 /** serise */
@@ -76,7 +53,7 @@ const series = [
   actionAData,
   actionBData,
   actionCData,
-  Degree
+  degree
 ];
 
 /** options */
@@ -147,7 +124,10 @@ const options: ApexOptions = {
   },
   xaxis: {
     type: 'datetime',
-    categories: monthlyDays
+    categories: dateLabels,
+    labels: {
+      format: 'yy/MM/dd'
+    }
   },
   yaxis: [
     // Action A
@@ -207,6 +187,9 @@ const options: ApexOptions = {
     enabledOnSeries: [0, 1, 2, 3],
     shared: true,
     intersect: false,
+    x: {
+      format: 'yy/MM/dd',
+    },
     y: {
       formatter: function (y) {
         if (typeof y !== "undefined") {

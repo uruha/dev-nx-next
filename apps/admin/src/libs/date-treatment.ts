@@ -4,16 +4,47 @@ import timezone from "dayjs/plugin/timezone";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.tz.setDefault("Asia/Tokyo");
 
-const now = dayjs().tz("Asia/Tokyo");
-const start = now.startOf("month");
+const now = dayjs().tz();
+// const start = now.startOf("month");
+// const end = now.endOf("month");
 
-// const isTheStartDayHasSunday = start.format("ddd") === "Sun";
+// monthly
+const getDate = (target?: string) => target ? dayjs(target).tz() : now;
 
-const getInTheLastSixDays = (length= 6): Dayjs[] => {
+const getDatesInRange = (start: Dayjs, end: Dayjs) => {
+  const dateList: Dayjs[] = [];
+
+  for (let i = 0; i <= end.diff(start, "day"); i++) {
+    const day = start.add(i, "d");
+    dateList.push(day);
+  }
+
+  return dateList;
+};
+
+export const getTheDateAndTimeOfOneMonth = (target?: string) => {
+  const date = getDate(target);
+
+  const start = date.startOf("month");
+  const end = date.endOf("month");
+  
+  // formated
+  const startDay = start.format();
+  const endDay = end.format();
+  const dateList = getDatesInRange(start, end).map(d => d.format('YYYY-MM-DD'));
+
+  return { startDay, endDay, dateList };
+};
+
+// 3 month
+const isTheStartDayHasSunday = (date: Dayjs) => date.format("ddd") === "Sun";
+
+const getInTheLastSixDays = (start: Dayjs): Dayjs[] => {
   const lastSixDays = [];
 
-  for (let i = 1; i <= length; i++) {
+  for (let i = 1; i <= 6; i++) {
     const subtractDay = start.subtract(i, "d");
     lastSixDays.push(subtractDay);
   }
@@ -21,18 +52,16 @@ const getInTheLastSixDays = (length= 6): Dayjs[] => {
   return lastSixDays;
 };
 
-const filterHasSunday = getInTheLastSixDays().filter(
-  (d) => d.format("ddd") === "Sun"
-);
+const getFirstSunday = (lastSixDays: Dayjs[]) => {
+  return lastSixDays.filter(
+    (d) => d.format("ddd") === "Sun"
+  );
+};
 
-// const hasSunday = filterHasSunday.length !== 0;
-
-const firstSunday = filterHasSunday[0];
-
-const getInTheFutureSixDaysFromFirstSunday = (length = 6) => {
+const getInTheFutureSixDaysFromFirstSunday = (firstSunday: Dayjs) => {
   const futureSixDays = [];
 
-  for (let i = 1; i <= length; i++) {
+  for (let i = 1; i <= 6; i++) {
     const addDay = firstSunday.add(i, "d");
     futureSixDays.push(addDay);
   }
@@ -40,17 +69,17 @@ const getInTheFutureSixDaysFromFirstSunday = (length = 6) => {
   return futureSixDays;
 };
 
-const filterHasSaturday = getInTheFutureSixDaysFromFirstSunday().filter(
-  (d) => d.format("ddd") === "Sat"
-);
-
-const firstSaturday = filterHasSaturday[0];
+const getFirstSaturDay = (futureSixDays: Dayjs[]) => {
+  return futureSixDays.filter(
+    (d) => d.format("ddd") === "Sat"
+  );
+};
 
 // 日曜日版
-// const getThirteenWeeksWorthOfDays = (length = 14): Dayjs[] => {
+// const getThirteenWeeksWorthOfDays = (firstSunday: Dayjs): Dayjs[] => {
 //   const lastThreeMonthsSunday = [];
 
-//   for (let i = 1; i <= length; i++) {
+//   for (let i = 0; i <= 14; i++) {
 //     const addDay = firstSunday.add(i, "w");
 //     lastThreeMonthsSunday.push(addDay);
 //   }
@@ -58,16 +87,11 @@ const firstSaturday = filterHasSaturday[0];
 //   return lastThreeMonthsSunday;
 // };
 
-// const lastSaturdayOfTheLastThreeMonths = getThirteenWeeksWorthOfDays()[13].subtract(
-//   1,
-//   "s"
-// );
-
 // 土曜日版
-const getThirteenWeeksWorthOfDays = (length = 13): Dayjs[] => {
+const getThirteenWeeksWorthOfDays = (firstSaturday: Dayjs): Dayjs[] => {
   const lastThreeMonthsSaturday = [];
 
-  for (let i = 0; i <= length; i++) {
+  for (let i = 0; i <= 13; i++) {
     const addDay = firstSaturday.add(i, "w");
     lastThreeMonthsSaturday.push(addDay);
   }
@@ -75,9 +99,34 @@ const getThirteenWeeksWorthOfDays = (length = 13): Dayjs[] => {
   return lastThreeMonthsSaturday;
 };
 
-const lastSaturdayOfTheLastThreeMonths = getThirteenWeeksWorthOfDays()[13].endOf('day');
+export const getTheDateAndTimeOfThreeMonth = (target?: string) => {
+  const date = getDate(target).subtract(2, 'M');
+  
+  const start = date.startOf("month");
+  
 
-const thirteenWeeksWorthOfDays = getThirteenWeeksWorthOfDays();
-thirteenWeeksWorthOfDays.splice(13, 13, lastSaturdayOfTheLastThreeMonths);
+  let firstSunday: Dayjs;
+  if(isTheStartDayHasSunday(start)) {
+    firstSunday = start;
+  } else {
+    const lastSixDays = getInTheLastSixDays(start);
+    firstSunday = getFirstSunday(lastSixDays)[0];
+  }
 
-export const threeMonthRange = thirteenWeeksWorthOfDays;
+  const futureSixDays = getInTheFutureSixDaysFromFirstSunday(firstSunday);
+  const firstSaturday = getFirstSaturDay(futureSixDays)[0];
+
+  const thirteenWeeksWorthOfDays = getThirteenWeeksWorthOfDays(firstSaturday);
+  const lastSaturdayOfTheLastThreeMonths = thirteenWeeksWorthOfDays[13].endOf('day');
+  // 日曜日版で計算してたら
+  // const lastSaturdayOfTheLastThreeMonths = thirteenWeeksWorthOfDays[14].subtract(1, 's');
+
+  thirteenWeeksWorthOfDays.splice(13, 13, lastSaturdayOfTheLastThreeMonths);
+
+  // formated
+  const startDay = firstSunday.format();
+  const endDay = lastSaturdayOfTheLastThreeMonths.format();
+  const dateList = thirteenWeeksWorthOfDays.map(d => d.format('YYYY-MM-DD'));
+
+  return { startDay, endDay, dateList };
+};

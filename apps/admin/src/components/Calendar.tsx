@@ -32,8 +32,8 @@ const currentDateAndTime = dayjs().tz();
 const twoMonthsAfterTheCurrentMonth = currentDateAndTime.add(2, 'M').startOf('month').format('YYYY-MM-DD');
 
 const handleDatesSet = (dateInfo: DatesSetArg) => {
-  const firstDayOfTheCalendar = dayjs(dateInfo.start).startOf('hour').format();
-  const lastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').endOf('hour').format();
+  const firstDayOfTheCalendar = dayjs(dateInfo.start).tz().startOf('hour').format();
+  const lastDayOfTheCalendar = dayjs(dateInfo.end).tz().subtract(1, 'd').endOf('day').format();
   const numbersForTheFirstDay = dayjs(dateInfo.start).tz().format('DD');
   const yearAndMonthOfTheSelectedCalendar =
     numbersForTheFirstDay === '01' ?
